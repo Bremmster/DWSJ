@@ -12,6 +12,7 @@ stateDiagram-v2
 ```
 ### att göra 
 [ ] Skapa tester tidigt
+[ ] Json 2 pojo
 
 
 Ska hantera Pokemons med egenskaperna  
