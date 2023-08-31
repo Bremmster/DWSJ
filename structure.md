@@ -12,8 +12,9 @@ stateDiagram-v2
     KafkaConsumerB --> app
 ```
 ### att göra 
-[ ] Skapa tester tidigt
-[ ] Json 2 pojo
+[ ] Skapa tester tidigt  
+[ ] Json 2 pojo  
+[ ] Flera packages i samma projekt 
 
 
 Ska hantera Pokemons med egenskaperna  
