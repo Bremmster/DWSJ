@@ -2,10 +2,7 @@ package com.karlson.dwsj.controller;
 
 import com.karlson.dwsj.kafka.KafkaProducer;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/kafka")
@@ -17,7 +14,7 @@ public class MessageController {
         this.kafkaProducer = kafkaProducer;
     }
 
-    @GetMapping("/publish")
+    @GetMapping("/publish" )
     public ResponseEntity<String> publish(@RequestParam("message") String message) {
         kafkaProducer.sendMessage(message);
         return ResponseEntity.ok(String.format("Message sent -> %s", message));

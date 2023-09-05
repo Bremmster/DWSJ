@@ -15,7 +15,10 @@ stateDiagram-v2
 [ ] Skapa tester tidigt  
 [ ] Json 2 pojo  
 [ ] Flera packages i samma projekt 
-
+    [ ] Producer  
+    [ ] consumer till DB
+    [ ] användarapplikation post + get
+    
 
 Ska hantera Pokemons med egenskaperna  
 {  
