@@ -23,7 +23,7 @@ public class Pokemon {
     private int defence;
 
     @Override
-    public String toString() {
+    public String toString() {  // Output is Json formatted
         return "Pokemon{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
