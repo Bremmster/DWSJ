@@ -4,6 +4,14 @@ public class Type {
     public int slot;
     public String type;
 
+    @Override
+    public String toString() {
+        return "Type{" +
+                "slot=" + slot +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
     public int getSlot() {
         return slot;
     }
