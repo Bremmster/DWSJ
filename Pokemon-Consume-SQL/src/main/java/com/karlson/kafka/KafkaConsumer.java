@@ -2,7 +2,7 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.payload.Pokemon;
+import com.karlson.entity.Pokemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;

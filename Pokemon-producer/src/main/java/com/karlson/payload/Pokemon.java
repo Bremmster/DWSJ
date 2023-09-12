@@ -1,33 +1,44 @@
 package com.karlson.payload;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Pokemon {
     /*
-    {
-"Id":"integer",
-"Name":"String",
-"Type":["String", "String"],
-"Total":"integer",
-"HP":"integer",
-"Attack":"integer",
-"Defense":"integer"
+   {
+    "pokeId": "4",
+    "name": "pika",
+    "total": 210,
+    "hp": 100,
+    "attack": "50",
+    "defence": "60",
+    "types": [
+        {
+            "slot": 1,
+            "type": "grass"
+        },
+        {
+            "slot": 2,
+            "type": "poison"
+        }
+    ]
 }
      */
-    private long id;  // Ponder if this is pokedex number or db key
-    private String name;
-    private String[] type;
-    private int total;
-    private int hp;
-    private int attack;
-    private int defence;
+    public int pokeId;  // This is pokedex number
+    public String name;
+    public int total;
+    public int hp;
+    public int attack;
+    public int defence;
+    public List<Type> types;
 
     @Override
-    public String toString() {  // Output is Json formatted
+    public String toString() {
         return "Pokemon{" +
-                "id=" + id +
+                "pokeId=" + pokeId +
                 ", name='" + name + '\'' +
-                ", type=" + Arrays.toString(type) +
+                ", types=" + types +
                 ", total=" + total +
                 ", hp=" + hp +
                 ", attack=" + attack +
@@ -35,12 +46,12 @@ public class Pokemon {
                 '}';
     }
 
-    public long getId() {
-        return id;
+    public long getPokeId() {
+        return pokeId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPokeId(int pokeId) {
+        this.pokeId = pokeId;
     }
 
     public String getName() {
@@ -51,12 +62,12 @@ public class Pokemon {
         this.name = name;
     }
 
-    public String[] getType() {
-        return type;
+    public List<Type> getTypes() {
+        return types;
     }
 
-    public void setType(String[] type) {
-        this.type = type;
+    public void setTypes(List<Type> types) {
+        this.types = types;
     }
 
     public int getTotal() {
