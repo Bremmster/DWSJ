@@ -17,8 +17,8 @@ class KafkaConsumer {
     public static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
 
 
-    private PokemonRepository pokemonRepository;
-    private ObjectMapper objectMapper;
+    private final PokemonRepository pokemonRepository;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
