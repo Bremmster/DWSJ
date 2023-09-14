@@ -5,10 +5,10 @@ public class Type {
     public String type;
 
     @Override
-    public String toString() {
-        return "Type{" +
-                "slot=" + slot +
-                ", type='" + type + '\'' +
+    public String toString() { // formatted to JSON
+        return "{" +
+                "\"slot\":\"" + slot + "\""+
+                ", \"type\":\"" + type + "\"" +
                 '}';
     }
 
