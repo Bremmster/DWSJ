@@ -20,18 +20,24 @@ class KafkaConsumer {
     private PokemonRepository pokemonRepository;
     private ObjectMapper objectMapper;
 
+    @Autowired
+    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
+        this.pokemonRepository = pokemonRepository;
+        this.objectMapper = objectMapper;
+    }
+
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consume(String message) {
 
-        
-        Pokemon pokemon;
         try {
-            pokemon = om.readValue(message, Pokemon.class);
+            Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
             pokemonRepository.save(pokemon);
+            LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
+
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error processing Kafka message:  {}", e.getMessage());
+            throw new RuntimeException("Error processing Kafka message ", e);
         }
-        LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
 
 
 //        LOGGER.info(String.format("Message received -> %s", message));
