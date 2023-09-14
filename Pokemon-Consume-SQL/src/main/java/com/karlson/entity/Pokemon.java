@@ -13,16 +13,17 @@ Root root = om.readValue(myJsonString, Root.class); */
 @Table(name = "pokemons")
 public class Pokemon {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int pokeId;
-    private String name;
-    private int total;
-    private int hp;
-    private int attack;
-    private int defence;
-    @OneToMany(mappedBy = "pokemon")
-    private List<Type> types = new ArrayList<>() {};
+    public int pokeId;
+    public String name;
+    public int total;
+    public int hp;
+    public int attack;
+    public int defence;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "property", referencedColumnName = "pokeId")
+    public ArrayList<Type> types;
 
     public long getId() {
         return id;
@@ -80,12 +81,26 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<Type> getTypes() {
+    public ArrayList<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(ArrayList<Type> types) {
         this.types = types;
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon found!{" +
+                "id=" + id +
+                ", pokeId=" + pokeId +
+                ", name='" + name + '\'' +
+                ", total=" + total +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                ", defence=" + defence +
+                ", types=" + types +
+                '}';
     }
 }
 

@@ -34,15 +34,15 @@ public class Pokemon {
     public List<Type> types;
 
     @Override
-    public String toString() {
-        return "Pokemon{" +
-                "pokeId=" + pokeId +
-                ", name='" + name + '\'' +
-                ", types=" + types +
-                ", total=" + total +
-                ", hp=" + hp +
-                ", attack=" + attack +
-                ", defence=" + defence +
+    public String toString() {  // Formatted to JSON
+        return "{" +
+                "\"pokeId\":" + pokeId +
+                ", \"name\":\"" + name + "\"" +
+                ", \"total\":" + total +
+                ", \"hp\":" + hp +
+                ", \"attack\":" + attack +
+                ", \"defence\":" + defence +
+                ", \"types\":" + types +
                 '}';
     }
 
