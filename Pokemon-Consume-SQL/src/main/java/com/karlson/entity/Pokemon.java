@@ -1,6 +1,9 @@
 package com.karlson.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 // import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
@@ -13,15 +16,21 @@ public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    public int pokeId;
-    public String name;
-    public int total;
-    public int hp;
-    public int attack;
-    public int defence;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private int pokeId;
+    private String name;
+    private int total;
+    private int hp;
+    private int attack;
+    private int defence;
+    @JsonProperty("types")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
     @JoinColumn(name = "pokeId", referencedColumnName = "pokeId")
-    public List<Type> types;
+    @Transient
+    private List<Type> types;
+    @JsonIgnore
+    private int typeA;
+    @JsonIgnore
+    private int typeB;
 
     public Pokemon() {
     }
@@ -96,12 +105,12 @@ public class Pokemon {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(List<Type> types) { // todo here make the list write to slot A+B
         this.types = types;
     }
 
     @Override
-    public String toString() {
+    public String toString() { // todo update this when list changes is done
         return "Pokemon found!{" +
                 "id=" + id +
                 ", pokeId=" + pokeId +
