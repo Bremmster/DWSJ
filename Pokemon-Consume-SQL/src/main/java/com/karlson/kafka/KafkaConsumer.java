@@ -2,9 +2,11 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.payload.Pokemon;
+import com.karlson.entity.Pokemon;
+import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 /* ObjectMapper om = new ObjectMapper();
@@ -14,17 +16,28 @@ Root root = om.readValue(myJsonString, Root.class); */
 class KafkaConsumer {
     public static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
 
+
+    private PokemonRepository pokemonRepository;
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
+        this.pokemonRepository = pokemonRepository;
+        this.objectMapper = objectMapper;
+    }
+
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consume(String message) {
 
-        ObjectMapper om = new ObjectMapper();
-        Pokemon pokemon;
         try {
-            pokemon = om.readValue(message, Pokemon.class);
+            Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
+            pokemonRepository.save(pokemon);
+            LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
+
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error processing Kafka message:  {}", e.getMessage());
+            throw new RuntimeException("Error processing Kafka message ", e);
         }
-        LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
 
 
 //        LOGGER.info(String.format("Message received -> %s", message));
