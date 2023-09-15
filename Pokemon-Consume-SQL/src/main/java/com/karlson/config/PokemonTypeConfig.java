@@ -1,6 +1,6 @@
 package com.karlson.config;
 
-import com.karlson.entity.Type;
+import com.karlson.entity.PokemonType;
 import com.karlson.repository.TypeRepository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ public class PokemonTypeConfig {
     public static final Logger LOGGER = LoggerFactory.getLogger(PokemonTypeConfig.class);
     private final String[] POKETYPES = {"normal", "fire", "water", "grass", "electric", "ice", "fighting",
             "poison", "ground", "rock", "psychic", "ice", "bug", "ghost", "steel", "dragon", "dark", "fairy"};
-    TypeRepository typeRepository;
+    private TypeRepository typeRepository;
 
     @Autowired
     public PokemonTypeConfig(TypeRepository typeRepository) {
@@ -28,19 +28,19 @@ public class PokemonTypeConfig {
      */
     @PostConstruct
     private void createTypeTable() {
-        List<Type> dbTypes = typeRepository.findAll();
+        List<PokemonType> dbPokemonTypes = typeRepository.findAll();
 
 
         for (String type : POKETYPES) {
-            if (!typeExists(dbTypes, type)) {
+            if (!typeExists(dbPokemonTypes, type)) {
                 LOGGER.info("Not found in list adding " + type);
                 try {
-                    typeRepository.save(new Type(type));
+                    typeRepository.save(new PokemonType(type));
                 } catch (Exception e) {
                     LOGGER.error("Error while adding type: " + e.getMessage());
                 }
             }
-/*
+/*          old solution todo delete
             boolean found;
             found = false;
             for (Type prop : dbTypes) {
@@ -57,7 +57,7 @@ public class PokemonTypeConfig {
         }
     }
 
-    private boolean typeExists(List<Type> types, String typeName) {
-        return types.stream().anyMatch(type -> type.getType().equalsIgnoreCase(typeName));
+    private boolean typeExists(List<PokemonType> pokemonTypes, String typeName) {
+        return pokemonTypes.stream().anyMatch(pokemonType -> pokemonType.getType().equalsIgnoreCase(typeName));
     }
 }
