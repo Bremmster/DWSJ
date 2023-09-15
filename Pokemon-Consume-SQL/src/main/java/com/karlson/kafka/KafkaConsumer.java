@@ -2,8 +2,7 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.config.PokemonTypeConfig;
-import com.karlson.coverter.PokemonTypeConverter;
+import com.karlson.converter.PokemonTypeConverter;
 import com.karlson.entity.Pokemon;
 import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ class KafkaConsumer {
 
     private final PokemonRepository pokemonRepository;
     private final ObjectMapper objectMapper;
-
     private PokemonTypeConverter pokemonTypeConverter;
 
     @Autowired
@@ -38,13 +36,12 @@ class KafkaConsumer {
 
         try {
             Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
-            System.out.println("to string" + pokemon.toString());
 
-            // Här ska man konvertera
+            // Convert the list of pokémon types to integer values from table on sql db
             pokemon = pokemonTypeConverter.typeConverter(pokemon);
 
             pokemonRepository.save(pokemon);
-            LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
+            LOGGER.info(String.format("Message received -> %s", pokemon));
 
         } catch (JsonProcessingException e) {
             LOGGER.error("Error processing Kafka message:  {}", e.getMessage());
