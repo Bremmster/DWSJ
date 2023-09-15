@@ -1,6 +1,6 @@
 package com.karlson.payload;
 
-public class Type {
+public class PokemonType {
     public int slot;
     public String type;
 

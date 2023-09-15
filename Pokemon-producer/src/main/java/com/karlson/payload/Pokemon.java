@@ -1,7 +1,7 @@
 package com.karlson.payload;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Pokemon {
@@ -31,7 +31,8 @@ public class Pokemon {
     public int hp;
     public int attack;
     public int defence;
-    public List<Type> types;
+    @JsonProperty("types")
+    public List<PokemonType> pokemonTypes;
 
     @Override
     public String toString() {  // Formatted to JSON
@@ -42,7 +43,7 @@ public class Pokemon {
                 ", \"hp\":" + hp +
                 ", \"attack\":" + attack +
                 ", \"defence\":" + defence +
-                ", \"types\":" + types +
+                ", \"types\":" + pokemonTypes +
                 '}';
     }
 
@@ -62,12 +63,12 @@ public class Pokemon {
         this.name = name;
     }
 
-    public List<Type> getTypes() {
-        return types;
+    public List<PokemonType> getPokemonTypes() {
+        return pokemonTypes;
     }
 
-    public void setTypes(List<Type> types) {
-        this.types = types;
+    public void setPokemonTypes(List<PokemonType> pokemonPokemonTypes) {
+        this.pokemonTypes = pokemonPokemonTypes;
     }
 
     public int getTotal() {

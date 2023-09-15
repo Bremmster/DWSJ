@@ -26,7 +26,7 @@ public class Pokemon {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
     @JoinColumn(name = "pokeId", referencedColumnName = "pokeId")
     @Transient
-    private List<Type> types;
+    private List<PokemonType> pokemonTypes;
     @JsonIgnore
     private int typeA;
     @JsonIgnore
@@ -35,14 +35,14 @@ public class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(int pokeId, String name, int total, int hp, int attack, int defence, List<Type> types) {
+    public Pokemon(int pokeId, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
         this.pokeId = pokeId;
         this.name = name;
         this.total = total;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
-        this.types = types;
+        this.pokemonTypes = pokemonTypes;
     }
 
     public long getId() {
@@ -101,14 +101,47 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<Type> getTypes() {
-        return types;
+    public List<PokemonType> getTypes() {
+        return pokemonTypes;
     }
 
-    public void setTypes(List<Type> types) { // todo here make the list write to slot A+B
-        this.types = types;
+    public void setTypes(List<PokemonType> pokemonTypes) {
+
+        this.pokemonTypes = pokemonTypes;
     }
 
+    public int getTypeA() {
+        return typeA;
+    }
+
+    public void setTypeA(int typeA) {
+        this.typeA = typeA;
+    }
+
+    public int getTypeB() {
+        return typeB;
+    }
+
+    public void setTypeB(int typeB) {
+        this.typeB = typeB;
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "id=" + id +
+                ", pokeId=" + pokeId +
+                ", name='" + name + '\'' +
+                ", total=" + total +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                ", defence=" + defence +
+                ", pokemonTypes=" + pokemonTypes +
+                ", typeA=" + typeA +
+                ", typeB=" + typeB +
+                '}';
+    }
+    /*
     @Override
     public String toString() { // todo update this when list changes is done
         return "Pokemon found!{" +
@@ -119,9 +152,9 @@ public class Pokemon {
                 ", hp=" + hp +
                 ", attack=" + attack +
                 ", defence=" + defence +
-                ", types=" + types +
+                ", types=" + pokemonTypes +
                 '}';
-    }
+    } */
 }
 
 

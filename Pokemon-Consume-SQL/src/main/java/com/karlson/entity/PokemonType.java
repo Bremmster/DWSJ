@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "types")
-public class Type {
+public class PokemonType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,15 +12,15 @@ public class Type {
     public String slot; // TODO delete this
     public String type;
 
-    public Type() {
+    public PokemonType() {
     }
 
-    public Type(String slot, String type) {
+    public PokemonType(String slot, String type) {
         this.slot = slot; //  TODO delete this
         this.type = type;
     }
 
-    public Type(String type) {
+    public PokemonType(String type) {
         this.type = type;
     }
 

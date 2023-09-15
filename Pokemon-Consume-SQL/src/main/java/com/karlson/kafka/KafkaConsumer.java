@@ -2,6 +2,8 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.karlson.config.PokemonTypeConfig;
+import com.karlson.coverter.PokemonTypeConverter;
 import com.karlson.entity.Pokemon;
 import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
@@ -20,17 +22,27 @@ class KafkaConsumer {
     private final PokemonRepository pokemonRepository;
     private final ObjectMapper objectMapper;
 
+    private PokemonTypeConverter pokemonTypeConverter;
+
     @Autowired
-    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
+    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper, PokemonTypeConverter pokemonTypeConverter) {
         this.pokemonRepository = pokemonRepository;
         this.objectMapper = objectMapper;
+        this.pokemonTypeConverter = pokemonTypeConverter;
     }
+
+
 
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consume(String message) {
 
         try {
             Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
+            System.out.println("to string" + pokemon.toString());
+
+            // Här ska man konvertera
+            pokemon = pokemonTypeConverter.typeConverter(pokemon);
+
             pokemonRepository.save(pokemon);
             LOGGER.info(String.format("Message received -> %s", pokemon.toString()));
 
