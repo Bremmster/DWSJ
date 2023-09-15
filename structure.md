@@ -16,7 +16,7 @@ stateDiagram-v2
 [ ] Json 2 pojo  
 [ ] Flera packages i samma projekt 
     [ ] Producer  
-    [ ] consumer till DB
+    [ ] consumer till DB ändra serializer tillJson
     [ ] användarapplikation post + get
     
 
