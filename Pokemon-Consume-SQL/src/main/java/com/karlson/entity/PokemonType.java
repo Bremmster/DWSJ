@@ -3,7 +3,7 @@ package com.karlson.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "types")
+//@Table(name = "types")
 public class PokemonType {
 
     @Id
@@ -12,6 +12,10 @@ public class PokemonType {
     @Transient
     public String slot; // TODO delete this
     public String type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokeId")
+    private Pokemon pokemon;
 
     public PokemonType() {
     }
@@ -50,6 +54,14 @@ public class PokemonType {
     public void setType(String type) {
         this.type = type;
     }
+    public Pokemon getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
+    }
+
 
     @Override
     public String toString() {
