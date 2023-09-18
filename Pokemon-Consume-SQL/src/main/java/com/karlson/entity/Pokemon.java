@@ -6,10 +6,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-// import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
-// import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1 example @JsonProperty("Id")
-/* ObjectMapper om = new ObjectMapper();
-Root root = om.readValue(myJsonString, Root.class); */
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
@@ -24,7 +20,7 @@ public class Pokemon {
     private int defence;
     @JsonProperty("types")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
-    @JoinColumn(name = "pokeId", referencedColumnName = "pokeId")
+    @JoinColumn(name = "types", referencedColumnName = "type")
     @Transient
     private List<PokemonType> pokemonTypes;
     @JsonIgnore
