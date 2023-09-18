@@ -15,29 +15,31 @@ public class PokemonTypeConverter {
 
     // lista med all data
     private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTypeConverter.class);
-    private TypeRepository typeRepository;
-
+    private static TypeRepository typeRepository;
+    private static List<PokemonType> pokemonTypesDb;
     @Autowired
     public PokemonTypeConverter(TypeRepository typeRepository) {
-        this.typeRepository = typeRepository;
+        PokemonTypeConverter.typeRepository = typeRepository;
+        pokemonTypesDb = typeRepository.findAll();
     }
 
-    public Pokemon typeConverter(Pokemon pokemon) {
-        List<PokemonType> pokemonTypesDb = typeRepository.findAll();  // Hämta lista över typer från databas och förvara statiskt i minnen? eller ta ifrån config?
+    public static Pokemon typeConverter(Pokemon pokemon) {
+     //   List<PokemonType> pokemonTypesDb = typeRepository.findAll();  // Hämta lista över typer från databas och förvara statiskt i minnen? eller ta ifrån config?
         String[] slot = new String[2];
 
         for (int i = 0; i < 2; i++) {
         slot[i] = pokemon.getTypes().get(i).getType(); // string
         }
-
+/*
         for (PokemonType dbType : pokemonTypesDb) {
             if (dbType.getType().equalsIgnoreCase(slot[0])) {
                 pokemon.setTypeA((int) dbType.getId());
             }
-            if (dbType.getType().equalsIgnoreCase(slot[1])) {
+            if ( slot[1] != null && dbType.getType().equalsIgnoreCase(slot[1])) {
                 pokemon.setTypeB((int) dbType.getId());
             }
         }
+      */
         return pokemon;
     }
 }

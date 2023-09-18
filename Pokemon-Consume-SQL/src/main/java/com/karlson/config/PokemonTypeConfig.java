@@ -15,7 +15,7 @@ public class PokemonTypeConfig {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(PokemonTypeConfig.class);
     private final String[] POKETYPES = {"normal", "fire", "water", "grass", "electric", "ice", "fighting",
-            "poison", "ground", "rock", "psychic", "ice", "bug", "ghost", "steel", "dragon", "dark", "fairy"};
+            "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"};
     private TypeRepository typeRepository;
 
     @Autowired
