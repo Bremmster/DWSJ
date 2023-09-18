@@ -30,7 +30,7 @@ public class PokemonTypeConverter {
         for (int i = 0; i < 2; i++) {
         slot[i] = pokemon.getTypes().get(i).getType(); // string
         }
-/*
+
         for (PokemonType dbType : pokemonTypesDb) {
             if (dbType.getType().equalsIgnoreCase(slot[0])) {
                 pokemon.setTypeA((int) dbType.getId());
@@ -39,7 +39,7 @@ public class PokemonTypeConverter {
                 pokemon.setTypeB((int) dbType.getId());
             }
         }
-      */
+
         return pokemon;
     }
 }
