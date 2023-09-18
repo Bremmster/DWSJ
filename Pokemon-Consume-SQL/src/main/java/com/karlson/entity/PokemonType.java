@@ -8,10 +8,10 @@ public class PokemonType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long id;
     @Transient
-    public String slot; // TODO delete this
-    public String type;
+    private String slot; // TODO delete this
+    private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokeId")

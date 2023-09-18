@@ -20,8 +20,8 @@ public class Pokemon {
     private int attack;
     private int defence;
     @JsonProperty("types")
-   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
-   // @JoinColumn(name = "types", referencedColumnName = "type")
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
+    // @JoinColumn(name = "types", referencedColumnName = "type")
     @OneToMany(mappedBy = "pokemon")
     private List<PokemonType> pokemonTypes;
     @JsonIgnore
@@ -105,7 +105,7 @@ public class Pokemon {
     public void setTypes(List<PokemonType> pokemonTypes) {
 
         this.pokemonTypes = pokemonTypes;
-
+// Todo comment in
         PokemonTypeConverter.typeConverter(this);
     }
 

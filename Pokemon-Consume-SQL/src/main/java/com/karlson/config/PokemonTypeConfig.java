@@ -16,7 +16,7 @@ public class PokemonTypeConfig {
     public static final Logger LOGGER = LoggerFactory.getLogger(PokemonTypeConfig.class);
     private final String[] POKETYPES = {"normal", "fire", "water", "grass", "electric", "ice", "fighting",
             "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"};
-    private TypeRepository typeRepository;
+    private final TypeRepository typeRepository;
 
     @Autowired
     public PokemonTypeConfig(TypeRepository typeRepository) {
@@ -25,7 +25,8 @@ public class PokemonTypeConfig {
 
     /**
      * Add all Pokémon types to a database table
-     */
+     **/
+
     @PostConstruct
     private void createTypeTable() {
         List<PokemonType> dbPokemonTypes = typeRepository.findAll();
@@ -40,20 +41,6 @@ public class PokemonTypeConfig {
                     LOGGER.error("Error while adding type: " + e.getMessage());
                 }
             }
-/*          old solution todo delete
-            boolean found;
-            found = false;
-            for (Type prop : dbTypes) {
-                if (prop.getType().equalsIgnoreCase(type)) {
-                    System.out.println("found in list");
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                System.out.println("Not found in list adding " + type);
-                this.typeRepository.save(new Type(type));
-            } */
         }
     }
 
