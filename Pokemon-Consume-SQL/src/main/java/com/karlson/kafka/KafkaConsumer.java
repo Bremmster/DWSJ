@@ -34,9 +34,6 @@ class KafkaConsumer {
         try {
             Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
 
-            // Convert the list of pokémon types to integer values from table on sql db
-            pokemon = pokemonTypeConverter.typeConverter(pokemon);
-
             pokemonRepository.save(pokemon);
             LOGGER.info(String.format("Message received -> %s", pokemon));
 
