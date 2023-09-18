@@ -4,19 +4,24 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "types")
-public class Type {
+public class PokemonType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
-    public String slot;
+    @Transient
+    public String slot; // TODO delete this
     public String type;
 
-    public Type() {
+    public PokemonType() {
     }
 
-    public Type(String slot, String type) {
-        this.slot = slot;
+    public PokemonType(String slot, String type) {
+        this.slot = slot; //  TODO delete this
+        this.type = type;
+    }
+
+    public PokemonType(String type) {
         this.type = type;
     }
 
@@ -28,6 +33,7 @@ public class Type {
         this.id = id;
     }
 
+    // TODO delete
     public String getSlot() {
         return slot;
     }
@@ -35,6 +41,7 @@ public class Type {
     public void setSlot(String slot) {
         this.slot = slot;
     }
+// todo end
 
     public String getType() {
         return type;
@@ -48,7 +55,7 @@ public class Type {
     public String toString() {
         return "Type{" +
                 "id=" + id +
-                ", slot='" + slot + '\'' +
+                ", slot='" + slot + '\'' + // todo remove
                 ", type='" + type + '\'' +
                 '}';
     }

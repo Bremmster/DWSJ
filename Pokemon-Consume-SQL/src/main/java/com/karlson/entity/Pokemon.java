@@ -1,6 +1,9 @@
 package com.karlson.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 // import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
@@ -13,27 +16,33 @@ public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    public int pokeId;
-    public String name;
-    public int total;
-    public int hp;
-    public int attack;
-    public int defence;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private int pokeId;
+    private String name;
+    private int total;
+    private int hp;
+    private int attack;
+    private int defence;
+    @JsonProperty("types")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
     @JoinColumn(name = "pokeId", referencedColumnName = "pokeId")
-    public List<Type> types;
+    @Transient
+    private List<PokemonType> pokemonTypes;
+    @JsonIgnore
+    private int typeA;
+    @JsonIgnore
+    private int typeB;
 
     public Pokemon() {
     }
 
-    public Pokemon(int pokeId, String name, int total, int hp, int attack, int defence, List<Type> types) {
+    public Pokemon(int pokeId, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
         this.pokeId = pokeId;
         this.name = name;
         this.total = total;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
-        this.types = types;
+        this.pokemonTypes = pokemonTypes;
     }
 
     public long getId() {
@@ -92,16 +101,49 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<Type> getTypes() {
-        return types;
+    public List<PokemonType> getTypes() {
+        return pokemonTypes;
     }
 
-    public void setTypes(List<Type> types) {
-        this.types = types;
+    public void setTypes(List<PokemonType> pokemonTypes) {
+
+        this.pokemonTypes = pokemonTypes;
+    }
+
+    public int getTypeA() {
+        return typeA;
+    }
+
+    public void setTypeA(int typeA) {
+        this.typeA = typeA;
+    }
+
+    public int getTypeB() {
+        return typeB;
+    }
+
+    public void setTypeB(int typeB) {
+        this.typeB = typeB;
     }
 
     @Override
     public String toString() {
+        return "Pokemon{" +
+                "id=" + id +
+                ", pokeId=" + pokeId +
+                ", name='" + name + '\'' +
+                ", total=" + total +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                ", defence=" + defence +
+                ", pokemonTypes=" + pokemonTypes +
+                ", typeA=" + typeA +
+                ", typeB=" + typeB +
+                '}';
+    }
+    /*
+    @Override
+    public String toString() { // todo update this when list changes is done
         return "Pokemon found!{" +
                 "id=" + id +
                 ", pokeId=" + pokeId +
@@ -110,9 +152,9 @@ public class Pokemon {
                 ", hp=" + hp +
                 ", attack=" + attack +
                 ", defence=" + defence +
-                ", types=" + types +
+                ", types=" + pokemonTypes +
                 '}';
-    }
+    } */
 }
 
 
