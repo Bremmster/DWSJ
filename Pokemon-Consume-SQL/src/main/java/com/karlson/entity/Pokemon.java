@@ -22,7 +22,7 @@ public class Pokemon {
     @JsonProperty("types")
    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
    // @JoinColumn(name = "types", referencedColumnName = "type")
-    @Transient
+    @OneToMany(mappedBy = "pokemon")
     private List<PokemonType> pokemonTypes;
     @JsonIgnore
     private int typeA;
