@@ -25,7 +25,7 @@ public class Pokemon {
     ]
 }
      */
-    public int pokeId;  // This is pokedex number
+    public int pokeId;  // This is pokédex number
     public String name;
     public int total;
     public int hp;
@@ -35,15 +35,15 @@ public class Pokemon {
     public List<PokemonType> pokemonTypes;
 
     @Override
-    public String toString() {  // Formatted to JSON
-        return "{" +
-                "\"pokeId\":" + pokeId +
-                ", \"name\":\"" + name + "\"" +
-                ", \"total\":" + total +
-                ", \"hp\":" + hp +
-                ", \"attack\":" + attack +
-                ", \"defence\":" + defence +
-                ", \"types\":" + pokemonTypes +
+    public String toString() {
+        return "Pokemon{" +
+                "pokeId=" + pokeId +
+                ", name='" + name + '\'' +
+                ", total=" + total +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                ", defence=" + defence +
+                ", pokemonTypes=" + pokemonTypes +
                 '}';
     }
 

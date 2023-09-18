@@ -3,12 +3,12 @@ package com.karlson.payload;
 public class PokemonType {
     public int slot;
     public String type;
-
+    
     @Override
-    public String toString() { // formatted to JSON
-        return "{" +
-                "\"slot\":\"" + slot + "\""+
-                ", \"type\":\"" + type + "\"" +
+    public String toString() {
+        return "PokemonType{" +
+                "slot=" + slot +
+                ", type='" + type + '\'' +
                 '}';
     }
 
