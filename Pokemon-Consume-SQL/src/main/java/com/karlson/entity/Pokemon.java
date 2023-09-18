@@ -141,20 +141,6 @@ public class Pokemon {
                 ", typeB=" + typeB +
                 '}';
     }
-    /*
-    @Override
-    public String toString() { // todo update this when list changes is done
-        return "Pokemon found!{" +
-                "id=" + id +
-                ", pokeId=" + pokeId +
-                ", name='" + name + '\'' +
-                ", total=" + total +
-                ", hp=" + hp +
-                ", attack=" + attack +
-                ", defence=" + defence +
-                ", types=" + pokemonTypes +
-                '}';
-    } */
 }
 
 

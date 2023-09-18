@@ -22,17 +22,14 @@ public class PokemonTypeConverter {
         this.typeRepository = typeRepository;
     }
 
-    public Pokemon typeConverter(Pokemon pokemon) { // ta emot en pokemon
+    public Pokemon typeConverter(Pokemon pokemon) {
         List<PokemonType> pokemonTypesDb = typeRepository.findAll();  // Hämta lista över typer från databas och förvara statiskt i minnen? eller ta ifrån config?
         String[] slot = new String[2];
 
         for (int i = 0; i < 2; i++) {
         slot[i] = pokemon.getTypes().get(i).getType(); // string
-
         }
-        // String slotA = pokemon.getTypes().get(1).getType(); // string
 
-        // jämför värden
         for (PokemonType dbType : pokemonTypesDb) {
             if (dbType.getType().equalsIgnoreCase(slot[0])) {
                 pokemon.setTypeA((int) dbType.getId());
