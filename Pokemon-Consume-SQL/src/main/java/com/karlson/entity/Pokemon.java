@@ -2,6 +2,7 @@ package com.karlson.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.karlson.converter.PokemonTypeConverter;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class Pokemon {
     private int attack;
     private int defence;
     @JsonProperty("types")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
-    @JoinColumn(name = "types", referencedColumnName = "type")
+   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
+   // @JoinColumn(name = "types", referencedColumnName = "type")
     @Transient
     private List<PokemonType> pokemonTypes;
     @JsonIgnore
@@ -104,6 +105,8 @@ public class Pokemon {
     public void setTypes(List<PokemonType> pokemonTypes) {
 
         this.pokemonTypes = pokemonTypes;
+
+        PokemonTypeConverter.typeConverter(this);
     }
 
     public int getTypeA() {
