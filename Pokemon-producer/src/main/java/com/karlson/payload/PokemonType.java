@@ -3,7 +3,7 @@ package com.karlson.payload;
 public class PokemonType {
     public int slot;
     public String type;
-    
+
     @Override
     public String toString() {
         return "PokemonType{" +

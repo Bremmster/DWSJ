@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-/* ObjectMapper om = new ObjectMapper();
-Root root = om.readValue(myJsonString, Root.class); */
 
 @Service
 class KafkaConsumer {
@@ -30,9 +28,8 @@ class KafkaConsumer {
     }
 
 
-
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
-    public void consume(String message) {
+    public void consumeString(String message) {
 
         try {
             Pokemon pokemon = objectMapper.readValue(message, Pokemon.class);
@@ -47,9 +44,24 @@ class KafkaConsumer {
             LOGGER.error("Error processing Kafka message:  {}", e.getMessage());
             throw new RuntimeException("Error processing Kafka message ", e);
         }
-
-
-//        LOGGER.info(String.format("Message received -> %s", message));
-
     }
+
+/*
+    @KafkaListener(topics = "pokemons", groupId = "myGroup")
+    public void consumeJson(Pokemon pokemon) {
+
+
+        try {
+            // Convert the list of pokémon types to integer values from table on sql db
+            pokemon = pokemonTypeConverter.typeConverter(pokemon);
+
+            pokemonRepository.save(pokemon);
+            LOGGER.info(String.format("Message received -> %s", pokemon));
+        } catch (Exception e) {
+            LOGGER.error("Error processing Kafka message:  {}", e.getMessage());
+            throw new RuntimeException("Error processing Kafka message ", e);
+        }
+    }
+
+ */
 }
