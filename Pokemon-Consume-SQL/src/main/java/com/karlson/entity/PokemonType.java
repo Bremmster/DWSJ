@@ -13,8 +13,8 @@ public class PokemonType {
     private String slot; // TODO delete this
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pokeId")
+    @ManyToOne
+    @JoinTable(name = "pokemons")
     private Pokemon pokemon;
 
     public PokemonType() {

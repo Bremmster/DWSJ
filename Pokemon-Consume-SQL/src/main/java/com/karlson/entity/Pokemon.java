@@ -20,14 +20,14 @@ public class Pokemon {
     private int attack;
     private int defence;
     @JsonProperty("types")
-    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
     // @JoinColumn(name = "types", referencedColumnName = "type")
-    @OneToMany(mappedBy = "pokemon")
+    //@OneToMany(mappedBy = "type")
     private List<PokemonType> pokemonTypes;
     @JsonIgnore
-    private int typeA;
+    private int firstType;
     @JsonIgnore
-    private int typeB;
+    private int secondType;
 
     public Pokemon() {
     }
@@ -106,23 +106,23 @@ public class Pokemon {
 
         this.pokemonTypes = pokemonTypes;
 // Todo comment in
-        PokemonTypeConverter.typeConverter(this);
+    //    PokemonTypeConverter.typeConverter(this);
     }
 
-    public int getTypeA() {
-        return typeA;
+    public int getFirstType() {
+        return firstType;
     }
 
-    public void setTypeA(int typeA) {
-        this.typeA = typeA;
+    public void setFirstType(int typeA) {
+        this.firstType = typeA;
     }
 
-    public int getTypeB() {
-        return typeB;
+    public int getSecondType() {
+        return secondType;
     }
 
-    public void setTypeB(int typeB) {
-        this.typeB = typeB;
+    public void setSecondType(int typeB) {
+        this.secondType = typeB;
     }
 
     @Override
@@ -136,8 +136,8 @@ public class Pokemon {
                 ", attack=" + attack +
                 ", defence=" + defence +
                 ", pokemonTypes=" + pokemonTypes +
-                ", typeA=" + typeA +
-                ", typeB=" + typeB +
+                ", typeA=" + firstType +
+                ", typeB=" + secondType +
                 '}';
     }
 }
