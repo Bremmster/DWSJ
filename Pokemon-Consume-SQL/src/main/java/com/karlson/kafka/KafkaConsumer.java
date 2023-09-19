@@ -2,7 +2,7 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.converter.PokemonTypeConverter;
+
 import com.karlson.entity.Pokemon;
 import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
@@ -18,13 +18,12 @@ class KafkaConsumer {
 
     private final PokemonRepository pokemonRepository;
     private final ObjectMapper objectMapper;
-    private PokemonTypeConverter pokemonTypeConverter;
+
 
     @Autowired
-    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper, PokemonTypeConverter pokemonTypeConverter) {
+    public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
         this.pokemonRepository = pokemonRepository;
         this.objectMapper = objectMapper;
-        this.pokemonTypeConverter = pokemonTypeConverter;
     }
 
 

@@ -1,7 +1,7 @@
 package com.karlson.payload;
 
 public class PokemonType {
-    public int slot;
+    public String slot;
     public String type;
 
     @Override
@@ -12,11 +12,11 @@ public class PokemonType {
                 '}';
     }
 
-    public int getSlot() {
+    public String getSlot() {
         return slot;
     }
 
-    public void setSlot(int slot) {
+    public void setSlot(String slot) {
         this.slot = slot;
     }
 

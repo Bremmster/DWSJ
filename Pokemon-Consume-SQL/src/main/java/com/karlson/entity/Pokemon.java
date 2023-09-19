@@ -1,10 +1,9 @@
 package com.karlson.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.karlson.converter.PokemonTypeConverter;
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -20,14 +19,9 @@ public class Pokemon {
     private int attack;
     private int defence;
     @JsonProperty("types")
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
-    // @JoinColumn(name = "types", referencedColumnName = "type")
-    //@OneToMany(mappedBy = "type")
-    private List<PokemonType> pokemonTypes;
-    @JsonIgnore
-    private int firstType;
-    @JsonIgnore
-    private int secondType;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "pokemon_types")
+    private Collection<PokemonType> pokemonTypes;
 
     public Pokemon() {
     }
@@ -98,31 +92,12 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<PokemonType> getTypes() {
+    public Collection<PokemonType> getTypes() {
         return pokemonTypes;
     }
 
     public void setTypes(List<PokemonType> pokemonTypes) {
-
         this.pokemonTypes = pokemonTypes;
-// Todo comment in
-    //    PokemonTypeConverter.typeConverter(this);
-    }
-
-    public int getFirstType() {
-        return firstType;
-    }
-
-    public void setFirstType(int typeA) {
-        this.firstType = typeA;
-    }
-
-    public int getSecondType() {
-        return secondType;
-    }
-
-    public void setSecondType(int typeB) {
-        this.secondType = typeB;
     }
 
     @Override
@@ -136,8 +111,6 @@ public class Pokemon {
                 ", attack=" + attack +
                 ", defence=" + defence +
                 ", pokemonTypes=" + pokemonTypes +
-                ", typeA=" + firstType +
-                ", typeB=" + secondType +
                 '}';
     }
 }
