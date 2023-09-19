@@ -10,6 +10,7 @@ public class PokemonType {
     private String type;
 
     public PokemonType(String slot, String type) {
+        this.slot = slot;
         this.type = type;
     }
 
