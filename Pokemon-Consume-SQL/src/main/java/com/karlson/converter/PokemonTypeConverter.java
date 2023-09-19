@@ -33,10 +33,10 @@ public class PokemonTypeConverter {
 
         for (PokemonType dbType : pokemonTypesDb) {
             if (dbType.getType().equalsIgnoreCase(slot[0])) {
-                pokemon.setTypeA((int) dbType.getId());
+                pokemon.setFirstType((int) dbType.getId());
             }
             if ( slot[1] != null && dbType.getType().equalsIgnoreCase(slot[1])) {
-                pokemon.setTypeB((int) dbType.getId());
+                pokemon.setSecondType((int) dbType.getId());
             }
         }
 
