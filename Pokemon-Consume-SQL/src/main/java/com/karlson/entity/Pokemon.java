@@ -1,15 +1,11 @@
 package com.karlson.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
-// import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
-// import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1 example @JsonProperty("Id")
-/* ObjectMapper om = new ObjectMapper();
-Root root = om.readValue(myJsonString, Root.class); */
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
@@ -23,14 +19,9 @@ public class Pokemon {
     private int attack;
     private int defence;
     @JsonProperty("types")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //todo this will stick with TYPE A +B or something
-    @JoinColumn(name = "pokeId", referencedColumnName = "pokeId")
-    @Transient
-    private List<PokemonType> pokemonTypes;
-    @JsonIgnore
-    private int typeA;
-    @JsonIgnore
-    private int typeB;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "pokemon_types")
+    private Collection<PokemonType> pokemonTypes;
 
     public Pokemon() {
     }
@@ -101,29 +92,12 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<PokemonType> getTypes() {
+    public Collection<PokemonType> getTypes() {
         return pokemonTypes;
     }
 
     public void setTypes(List<PokemonType> pokemonTypes) {
-
         this.pokemonTypes = pokemonTypes;
-    }
-
-    public int getTypeA() {
-        return typeA;
-    }
-
-    public void setTypeA(int typeA) {
-        this.typeA = typeA;
-    }
-
-    public int getTypeB() {
-        return typeB;
-    }
-
-    public void setTypeB(int typeB) {
-        this.typeB = typeB;
     }
 
     @Override
@@ -137,24 +111,8 @@ public class Pokemon {
                 ", attack=" + attack +
                 ", defence=" + defence +
                 ", pokemonTypes=" + pokemonTypes +
-                ", typeA=" + typeA +
-                ", typeB=" + typeB +
                 '}';
     }
-    /*
-    @Override
-    public String toString() { // todo update this when list changes is done
-        return "Pokemon found!{" +
-                "id=" + id +
-                ", pokeId=" + pokeId +
-                ", name='" + name + '\'' +
-                ", total=" + total +
-                ", hp=" + hp +
-                ", attack=" + attack +
-                ", defence=" + defence +
-                ", types=" + pokemonTypes +
-                '}';
-    } */
 }
 
 
