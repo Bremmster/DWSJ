@@ -12,6 +12,11 @@ public class PokemonType {
                 '}';
     }
 
+    public PokemonType(String slot, String type) {
+        this.slot = slot;
+        this.type = type;
+    }
+
     public String getSlot() {
         return slot;
     }
