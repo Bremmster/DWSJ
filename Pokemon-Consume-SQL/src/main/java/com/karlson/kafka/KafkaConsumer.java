@@ -17,16 +17,17 @@ class KafkaConsumer {
 
 
     private final PokemonRepository pokemonRepository;
-    private final ObjectMapper objectMapper;
+ //   private final ObjectMapper objectMapper;
 
 
     @Autowired
     public KafkaConsumer(PokemonRepository pokemonRepository, ObjectMapper objectMapper) {
         this.pokemonRepository = pokemonRepository;
-        this.objectMapper = objectMapper;
+   //     this.objectMapper = objectMapper;
     }
 
 
+/*
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consumeString(String message) {
 
@@ -42,15 +43,12 @@ class KafkaConsumer {
         }
     }
 
-/*
+*/
+
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consumeJson(Pokemon pokemon) {
 
-
         try {
-            // Convert the list of pokémon types to integer values from table on sql db
-            pokemon = pokemonTypeConverter.typeConverter(pokemon);
-
             pokemonRepository.save(pokemon);
             LOGGER.info(String.format("Message received -> %s", pokemon));
         } catch (Exception e) {
@@ -59,5 +57,5 @@ class KafkaConsumer {
         }
     }
 
- */
+
 }
