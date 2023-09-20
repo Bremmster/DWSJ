@@ -5,26 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class Pokemon {
-    /*
-   {
-    "pokeId": "4",
-    "name": "pika",
-    "total": 210,
-    "hp": 100,
-    "attack": "50",
-    "defence": "60",
-    "types": [
-        {
-            "slot": 1,
-            "type": "grass"
-        },
-        {
-            "slot": 2,
-            "type": "poison"
-        }
-    ]
-}
-     */
+
+    private long id;
     public int pokeId;  // This is pokédex number
     public String name;
     public int total;
