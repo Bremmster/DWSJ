@@ -1,6 +1,8 @@
 package com.karlson.dwsj;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.karlson.dwsj.model.Pokemon;
+import com.karlson.dwsj.service.RestClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +17,7 @@ public class DwsjApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args)  {
         System.out.println("Hello, world!");
         Random random = new Random();
 
@@ -23,7 +25,8 @@ public class DwsjApplication implements CommandLineRunner {
         Pokemon pokemon = new Pokemon("test", random);
 
         System.out.println(pokemon);
-
+        RestClient client = new RestClient();
+        client.sendMessage(pokemon);
 
 
         // fråga om namn
