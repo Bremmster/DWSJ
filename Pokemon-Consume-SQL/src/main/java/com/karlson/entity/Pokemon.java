@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -93,11 +92,11 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public Collection<PokemonType> getPokemonTypes() {
+    public Collection<PokemonType> getTypes() {
         return pokemonTypes;
     }
 
-    public void setPokemonTypes(List<PokemonType> pokemonTypes) {
+    public void setTypes(List<PokemonType> pokemonTypes) {
         this.pokemonTypes = pokemonTypes;
     }
 
