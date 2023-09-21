@@ -32,9 +32,9 @@ public class Pokemon {
             pokemonTypes.add(new PokemonType((i == 0 ? "first": "second" ), GivePokemonType.get(random)));
         }
     }
-    
     public int getPokedexNumber() {
         return pokedexNumber;
+
     }
 
     public void setPokedexNumber(int pokedexNumber) {
@@ -47,46 +47,6 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public int getDefence() {
-        return defence;
-    }
-
-    public void setDefence(int defence) {
-        this.defence = defence;
-    }
-
-    public List<PokemonType> getPokemonTypes() {
-        return pokemonTypes;
-    }
-
-    public void setPokemonTypes(List<PokemonType> pokemonTypes) {
-        this.pokemonTypes = pokemonTypes;
     }
 
     @Override
