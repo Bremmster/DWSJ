@@ -3,8 +3,7 @@ package com.karlson;
 import com.karlson.entity.Pokemon;
 import com.karlson.entity.PokemonType;
 import com.karlson.repository.PokemonRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DatabaseTest {
 
     private static Pokemon pokemon;
@@ -30,12 +30,36 @@ class DatabaseTest {
     }
 
     @Test
-    void name() {
+    @Order(1)
+    void createPokemonTest() {
 
-        pokemonRepository.save(pokemon);
+        pokemon = pokemonRepository.save(pokemon);
 
-        assertEquals(pokemon.getName(), pokemonRepository.findById(1L).get().getName());
+        assertNotNull(pokemonRepository.findById(pokemon.getId()).get());
+    }
 
+    @Test
+    @Order(2)
+    void updatePokemonTest() {
 
+        Pokemon fetchedPokemon = pokemonRepository.findById(this.pokemon.getId()).get();
+        assertNotNull(fetchedPokemon);
+
+        fetchedPokemon.setName("Ditto");
+
+        pokemonRepository.save(fetchedPokemon);
+
+        assertEquals("Ditto", pokemonRepository.findById(this.pokemon.getId()).get().getName());
+
+    }
+
+    @Test
+    @Order(3)
+    void deletePokemon() {
+        assertNotNull(pokemonRepository.findById(pokemon.getId()).get());
+
+        pokemonRepository.deleteById(pokemon.getId());
+
+        assertTrue(pokemonRepository.findById(pokemon.getId()).isEmpty());
     }
 }
