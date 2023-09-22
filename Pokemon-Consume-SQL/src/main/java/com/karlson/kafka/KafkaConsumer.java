@@ -2,12 +2,12 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.karlson.entity.Pokemon;
 import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,8 @@ class KafkaConsumer {
         this.pokemonRepository = pokemonRepository;
         this.objectMapper = objectMapper;
     }
+
+
 
 
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
