@@ -1,4 +1,4 @@
-package com.karlson.dwsj.util;
+package com.karlson.util;
 
 import org.apache.kafka.common.protocol.types.Field;
 
