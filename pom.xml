@@ -17,6 +17,7 @@
     <modules>
         <module>Pokemon-producer</module>
         <module>Pokemon-Consume-SQL</module>
+        <module>User-client</module>
     </modules>
     <properties>
         <java.version>17</java.version>
@@ -24,6 +25,7 @@
         <maven.compiler.target>20</maven.compiler.target>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
