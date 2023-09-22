@@ -1,6 +1,6 @@
-package com.karlson.dwsj.model;
+package com.karlson.model;
 
-import com.karlson.dwsj.util.Types;
+import com.karlson.util.Types;
 
 public class PokemonType {
     private final String slot;

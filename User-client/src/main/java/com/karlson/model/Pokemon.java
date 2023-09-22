@@ -1,6 +1,6 @@
-package com.karlson.dwsj.model;
+package com.karlson.model;
 
-import com.karlson.dwsj.util.GivePokemonType;
+import com.karlson.util.GivePokemonType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.karlson.dwsj.service;
+package com.karlson.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.dwsj.model.Pokemon;
+import com.karlson.model.Pokemon;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -11,7 +11,7 @@ import java.net.*;
 
 public class RestClient {
     private final ObjectMapper objectMapper;
-    private final String apiUrl = "http://localhost:8080/:8080/api/v1/pokemons/publish";
+    private final String apiUrl = "http://localhost:8080/api/v1/pokemons/publish";
 
     ;
 
