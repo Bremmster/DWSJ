@@ -29,7 +29,7 @@ class KafkaConsumer {
 
 
 
-    @KafkaListener(topics = "pokemons", groupId = "myGroup")
+    @KafkaListener(topics = "WRONG", groupId = "myGroup") // change name of topic
     public void consumeString(String message) {
 
         try {
@@ -44,15 +44,11 @@ class KafkaConsumer {
         }
     }
 
-/*
+
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consumeJson(Pokemon pokemon) {
 
-
         try {
-            // Convert the list of pokémon types to integer values from table on sql db
-            pokemon = pokemonTypeConverter.typeConverter(pokemon);
-
             pokemonRepository.save(pokemon);
             LOGGER.info(String.format("Message received -> %s", pokemon));
         } catch (Exception e) {
@@ -61,5 +57,5 @@ class KafkaConsumer {
         }
     }
 
- */
+
 }

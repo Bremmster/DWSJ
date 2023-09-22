@@ -1,5 +1,5 @@
 package com.karlson.config;
-
+/*
 import com.karlson.entity.PokemonType;
 
 import jakarta.annotation.PostConstruct;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-/*
+
 @Configuration
 public class PokemonTypeConfig {
 
