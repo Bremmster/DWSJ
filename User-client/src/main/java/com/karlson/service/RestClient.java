@@ -1,7 +1,7 @@
 package com.karlson.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.karlson.model.Pokemon;
+import com.karlson.pokemondata.model.Pokemon;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -25,6 +25,7 @@ public class RestClient {
         try {
             this.postData = objectMapper.writeValueAsString(pokemon);
 
+            System.out.println(postData);
 
             URL url = new URL(apiUrl);
 

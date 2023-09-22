@@ -21,6 +21,7 @@
         <module>Pokemon-producer</module>
         <module>Pokemon-Consume-SQL</module>
         <module>User-client</module>
+        <module>Pokemon-data</module>
     </modules>
     <properties>
         <java.version>17</java.version>

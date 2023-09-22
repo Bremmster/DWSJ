@@ -1,6 +1,4 @@
-package com.karlson.model;
-
-import com.karlson.util.Types;
+package com.karlson.pokemondata.model;
 
 public class PokemonType {
     private final String slot;
