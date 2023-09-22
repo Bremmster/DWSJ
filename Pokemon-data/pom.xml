@@ -9,15 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>User-client</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.karlson</groupId>
-            <artifactId>Pokemon-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <artifactId>Pokemon-data</artifactId>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>

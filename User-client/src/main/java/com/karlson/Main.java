@@ -1,6 +1,7 @@
 package com.karlson;
 
-import com.karlson.model.Pokemon;
+
+import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.RestClient;
 
 import java.util.Random;

@@ -1,6 +1,6 @@
-package com.karlson.model;
+package com.karlson.pokemondata.model;
 
-import com.karlson.util.GivePokemonType;
+import com.karlson.pokemondata.util.GivePokemonType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(String name, Random random) {
+    public Pokemon(String name, Random random) { // to generate new pokemons in the user client
         this.pokedexNumber = random.nextInt(1, 1010 + 1);
         this.name = name;
         this.hp = random.nextInt(0, 100);

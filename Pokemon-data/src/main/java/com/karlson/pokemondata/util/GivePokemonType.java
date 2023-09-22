@@ -1,6 +1,4 @@
-package com.karlson.util;
-
-import org.apache.kafka.common.protocol.types.Field;
+package com.karlson.pokemondata.util;
 
 import java.util.List;
 import java.util.Random;
