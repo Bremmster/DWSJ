@@ -22,7 +22,7 @@ public class JsonKafkaProducer {
 
     public void sendMessage(Pokemon data) {
 
-        LOGGER.info(String.format("Message sent -> %s ", data.toString()));
+        LOGGER.info(String.format("Message sent -> %s ", data));
 
         Message<Pokemon> message = MessageBuilder.withPayload(data).setHeader(KafkaHeaders.TOPIC, "pokemons").build();
 
