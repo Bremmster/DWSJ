@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
