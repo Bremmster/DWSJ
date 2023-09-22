@@ -18,7 +18,7 @@ public class PokemonMessageController {
     @PostMapping("/publish")
     public ResponseEntity<String> publish(@RequestBody Pokemon pokemon) {
         kafkaProducer.sendMessage(pokemon);
-
+        System.out.println(pokemon);
         return ResponseEntity.ok("Message sent to topic");
     }
 }
