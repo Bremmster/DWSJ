@@ -1,10 +1,11 @@
-package com.karlson.payload;
+package com.karlson.payloadOLD;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class Pokemon {
+@Deprecated
+class Pokemon {
 
     public int pokeId;  // This is pokédex number
     public String name;

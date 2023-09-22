@@ -1,6 +1,6 @@
 package com.karlson.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Embeddable
