@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.*;
 
 public class RestClient {
     private final ObjectMapper objectMapper;
@@ -28,12 +26,12 @@ public class RestClient {
             this.postData = objectMapper.writeValueAsString(pokemon);
 
 
-            URI uri = new URI(apiUrl);
+            URL url = new URL(apiUrl);
 
-            HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
 
             // send POST data
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
@@ -54,7 +52,7 @@ public class RestClient {
                 System.out.printf("Response body %s ", response);
             }
 
-        } catch (URISyntaxException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
