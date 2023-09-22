@@ -2,6 +2,6 @@ package com.karlson;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        // Package only holds POJOs and ways to create them at with random properties
     }
 }
