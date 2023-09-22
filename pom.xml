@@ -27,6 +27,7 @@
         <module>Pokemon-Consume-SQL</module>
         <module>User-client</module>
         <module>Pokemon-data</module>
+        <module>Pokemon-configurations</module>
     </modules>
     <dependencies>
 
