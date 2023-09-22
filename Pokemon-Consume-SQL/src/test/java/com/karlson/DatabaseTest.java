@@ -1,7 +1,6 @@
 package com.karlson;
 
-import com.karlson.entity.Pokemon;
-import com.karlson.entity.PokemonType;
+import com.karlson.pokemondata.model.*;
 import com.karlson.repository.PokemonRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

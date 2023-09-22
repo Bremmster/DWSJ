@@ -29,6 +29,16 @@ public class Pokemon {
     public Pokemon() {
     }
 
+    public Pokemon(int pokedexNumber, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
+        this.pokedexNumber = pokedexNumber;
+        this.name = name;
+        this.total = total;
+        this.hp = hp;
+        this.attack = attack;
+        this.defence = defence;
+        this.pokemonTypes = pokemonTypes;
+    }
+
     public Pokemon(String name, Random random) { // to generate new pokemons in the user client
         this.pokedexNumber = random.nextInt(1, 1010 + 1);
         this.name = name;
@@ -41,6 +51,14 @@ public class Pokemon {
         for (int i = 0; i < 2; i++) {
             pokemonTypes.add(new PokemonType((i == 0 ? "first": "second" ), GivePokemonType.get(random)));
         }
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getPokedexNumber() {
