@@ -2,7 +2,7 @@ package com.karlson.entity;
 
 
 import jakarta.persistence.*;
-
+@Deprecated
 @Embeddable
 public class PokemonType {
 
