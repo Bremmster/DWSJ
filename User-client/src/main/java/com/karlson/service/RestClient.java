@@ -9,13 +9,13 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class RestClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
-
-    private final ObjectMapper objectMapper;
     private static final String API_URL = "http://localhost:8080/api/v1/pokemons/publish";
+    private final ObjectMapper objectMapper;
 
     public RestClient() {
         this.objectMapper = new ObjectMapper();
@@ -38,11 +38,8 @@ public class RestClient {
             }
 
             // Get response
-            int responseCode = connection.getResponseCode();
 
-            if (responseCode != 200) {
-                LOGGER.error(String.format("Response code:  %s", responseCode));
-            }
+            LOGGER.info(String.format("Response code -> %s", connection.getResponseCode()));
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
@@ -51,7 +48,7 @@ public class RestClient {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
-                LOGGER.info(String.format("Response body %s ", response));
+                LOGGER.info(String.format("Response body -> %s ", response));
             }
 
         } catch (IOException e) {
