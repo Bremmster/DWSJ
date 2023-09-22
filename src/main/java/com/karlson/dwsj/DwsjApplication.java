@@ -1,6 +1,5 @@
 package com.karlson.dwsj;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.karlson.dwsj.model.Pokemon;
 import com.karlson.dwsj.service.RestClient;
 import org.springframework.boot.CommandLineRunner;
