@@ -2,6 +2,8 @@ package com.karlson.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.karlson.pokemondata.model.Pokemon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -10,12 +12,10 @@ import java.io.InputStreamReader;
 import java.net.*;
 
 public class RestClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
+
     private final ObjectMapper objectMapper;
-    private final String apiUrl = "http://localhost:8080/api/v1/pokemons/publish";
-
-    ;
-
-    private String postData;
+    private static final String API_URL = "http://localhost:8080/api/v1/pokemons/publish";
 
     public RestClient() {
         this.objectMapper = new ObjectMapper();
@@ -23,11 +23,9 @@ public class RestClient {
 
     public void sendMessage(Pokemon pokemon) {
         try {
-            this.postData = objectMapper.writeValueAsString(pokemon);
+            String postData = objectMapper.writeValueAsString(pokemon);
 
-            System.out.println(postData);
-
-            URL url = new URL(apiUrl);
+            URL url = new URL(API_URL);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -41,7 +39,10 @@ public class RestClient {
 
             // Get response
             int responseCode = connection.getResponseCode();
-            System.out.printf("Response code:  %s", responseCode);
+
+            if (responseCode != 200) {
+                LOGGER.error(String.format("Response code:  %s", responseCode));
+            }
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
@@ -50,7 +51,7 @@ public class RestClient {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
-                System.out.printf("Response body %s ", response);
+                LOGGER.info(String.format("Response body %s ", response));
             }
 
         } catch (IOException e) {
