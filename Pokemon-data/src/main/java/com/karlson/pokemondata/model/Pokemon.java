@@ -1,12 +1,19 @@
 package com.karlson.pokemondata.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.karlson.pokemondata.util.GivePokemonType;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+@Entity
+@Table(name = "pokemons")
 public class Pokemon {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private int pokedexNumber;
     private String name;
@@ -14,6 +21,9 @@ public class Pokemon {
     private int hp;
     private int attack;
     private int defence;
+    @JsonProperty("types")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "pokemon_types")
     private List<PokemonType> pokemonTypes;
 
     public Pokemon() {
@@ -32,9 +42,9 @@ public class Pokemon {
             pokemonTypes.add(new PokemonType((i == 0 ? "first": "second" ), GivePokemonType.get(random)));
         }
     }
+
     public int getPokedexNumber() {
         return pokedexNumber;
-
     }
 
     public void setPokedexNumber(int pokedexNumber) {
@@ -47,6 +57,46 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefence() {
+        return defence;
+    }
+
+    public void setDefence(int defence) {
+        this.defence = defence;
+    }
+
+    public List<PokemonType> getPokemonTypes() {
+        return pokemonTypes;
+    }
+
+    public void setPokemonTypes(List<PokemonType> pokemonTypes) {
+        this.pokemonTypes = pokemonTypes;
     }
 
     @Override

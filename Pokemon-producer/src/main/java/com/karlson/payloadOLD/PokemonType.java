@@ -1,5 +1,5 @@
-package com.karlson.payload;
-
+package com.karlson.payloadOLD;
+@Deprecated
 public class PokemonType {
     public String slot;
     public String type;
