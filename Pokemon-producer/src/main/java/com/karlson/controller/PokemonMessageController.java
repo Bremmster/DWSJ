@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/pokemons")
 public class PokemonMessageController {
 
-    private JsonKafkaProducer kafkaProducer;
+    private final JsonKafkaProducer kafkaProducer;
 
     public PokemonMessageController(JsonKafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
