@@ -43,14 +43,14 @@ class DatabaseTest {
     @Order(2)
     void updatePokemonTest() {
 
-        Pokemon fetchedPokemon = pokemonRepository.findById(this.pokemon.getId()).get();
+        Pokemon fetchedPokemon = pokemonRepository.findById(pokemon.getId()).get();
         assertNotNull(fetchedPokemon);
 
         fetchedPokemon.setName("Ditto");
 
         pokemonRepository.save(fetchedPokemon);
 
-        assertEquals("Ditto", pokemonRepository.findById(this.pokemon.getId()).get().getName());
+        assertEquals("Ditto", pokemonRepository.findById(pokemon.getId()).get().getName());
 
     }
 
