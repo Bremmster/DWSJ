@@ -23,10 +23,10 @@
 
     <description>Inlämningsuppgift Designa en Web Service i Java</description>
     <modules>
-        <module>Pokemon-producer</module>
+        <module>Pokemon-data</module>
         <module>Pokemon-Consume-SQL</module>
         <module>User-client</module>
-        <module>Pokemon-data</module>
+        <module>Pokemon-producer</module>
     </modules>
     <dependencies>
 
