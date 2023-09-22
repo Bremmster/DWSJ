@@ -1,18 +1,21 @@
-package com.karlson.entity;
+package com.karlson.pokemondata.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.karlson.pokemondata.util.GivePokemonType;
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int pokeId;
+
+    private int pokedexNumber;
     private String name;
     private int total;
     private int hp;
@@ -21,19 +24,33 @@ public class Pokemon {
     @JsonProperty("types")
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "pokemon_types")
-    private Collection<PokemonType> pokemonTypes;
+    private List<PokemonType> pokemonTypes;
 
     public Pokemon() {
     }
 
-    public Pokemon(int pokeId, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
-        this.pokeId = pokeId;
+    public Pokemon(int pokedexNumber, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
+        this.pokedexNumber = pokedexNumber;
         this.name = name;
         this.total = total;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
         this.pokemonTypes = pokemonTypes;
+    }
+
+    public Pokemon(String name, Random random) { // to generate new pokemons in the user client
+        this.pokedexNumber = random.nextInt(1, 1010 + 1);
+        this.name = name;
+        this.hp = random.nextInt(0, 100);
+        this.attack = random.nextInt(0, 100);
+        this.defence = random.nextInt(0, 100);
+        this.total = attack + defence + hp;
+
+        this.pokemonTypes = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            pokemonTypes.add(new PokemonType((i == 0 ? "first": "second" ), GivePokemonType.get(random)));
+        }
     }
 
     public long getId() {
@@ -44,12 +61,12 @@ public class Pokemon {
         this.id = id;
     }
 
-    public int getPokeId() {
-        return pokeId;
+    public int getPokedexNumber() {
+        return pokedexNumber;
     }
 
-    public void setPokeId(int pokeId) {
-        this.pokeId = pokeId;
+    public void setPokedexNumber(int pokedexNumber) {
+        this.pokedexNumber = pokedexNumber;
     }
 
     public String getName() {
@@ -92,19 +109,18 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public Collection<PokemonType> getTypes() {
+    public List<PokemonType> getPokemonTypes() {
         return pokemonTypes;
     }
 
-    public void setTypes(List<PokemonType> pokemonTypes) {
+    public void setPokemonTypes(List<PokemonType> pokemonTypes) {
         this.pokemonTypes = pokemonTypes;
     }
 
     @Override
     public String toString() {
         return "Pokemon{" +
-                "id=" + id +
-                ", pokeId=" + pokeId +
+                "pokedexNumber=" + pokedexNumber +
                 ", name='" + name + '\'' +
                 ", total=" + total +
                 ", hp=" + hp +
@@ -114,6 +130,3 @@ public class Pokemon {
                 '}';
     }
 }
-
-
-

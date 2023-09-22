@@ -1,11 +1,9 @@
-package com.karlson.entity;
+package com.karlson.pokemondata.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class PokemonType {
-
     private String slot;
     private String type;
 
@@ -36,7 +34,7 @@ public class PokemonType {
     @Override
     public String toString() {
         return "PokemonType{" +
-                "slot='" + slot + '\'' +
+                "slot=" + slot +
                 ", type='" + type + '\'' +
                 '}';
     }

@@ -1,7 +1,7 @@
 package com.karlson.controller;
 
 import com.karlson.kafka.JsonKafkaProducer;
-import com.karlson.payload.Pokemon;
+import com.karlson.pokemondata.model.Pokemon;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,6 @@ public class PokemonMessageController {
     @PostMapping("/publish")
     public ResponseEntity<String> publish(@RequestBody Pokemon pokemon) {
         kafkaProducer.sendMessage(pokemon);
-
         return ResponseEntity.ok("Message sent to topic");
     }
 }

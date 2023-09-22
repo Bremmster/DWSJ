@@ -2,12 +2,12 @@ package com.karlson.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.karlson.entity.Pokemon;
+import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.repository.PokemonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,9 @@ class KafkaConsumer {
     }
 
 
-    @KafkaListener(topics = "pokemons", groupId = "myGroup")
+
+
+    @KafkaListener(topics = "WRONG", groupId = "myGroup") // change name of topic
     public void consumeString(String message) {
 
         try {
@@ -42,15 +44,11 @@ class KafkaConsumer {
         }
     }
 
-/*
+
     @KafkaListener(topics = "pokemons", groupId = "myGroup")
     public void consumeJson(Pokemon pokemon) {
 
-
         try {
-            // Convert the list of pokémon types to integer values from table on sql db
-            pokemon = pokemonTypeConverter.typeConverter(pokemon);
-
             pokemonRepository.save(pokemon);
             LOGGER.info(String.format("Message received -> %s", pokemon));
         } catch (Exception e) {
@@ -59,5 +57,5 @@ class KafkaConsumer {
         }
     }
 
- */
+
 }
