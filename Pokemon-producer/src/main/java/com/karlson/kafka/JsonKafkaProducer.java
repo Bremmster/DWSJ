@@ -14,7 +14,7 @@ public class JsonKafkaProducer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(JsonKafkaProducer.class);
 
-    private KafkaTemplate<String, Pokemon> kafkaTemplate;
+    private final KafkaTemplate<String, Pokemon> kafkaTemplate;
 
     public JsonKafkaProducer(KafkaTemplate<String, Pokemon> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
