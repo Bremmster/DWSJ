@@ -10,11 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Optional;
 
 @SpringBootApplication
-public class PokemonConsumerSQL implements CommandLineRunner {
+public class PokemonConsumerSQL {//implements CommandLineRunner {
 
-    PokemonRepository pokemonRepository;
+//    PokemonRepository pokemonRepository;
 
+    public static void main(String[] args) {
+        SpringApplication.run(PokemonConsumerSQL.class);
+    }
 
+}/*
     @Autowired
     public PokemonConsumerSQL(PokemonRepository pokemonRepository) {
         this.pokemonRepository = pokemonRepository;
@@ -22,9 +26,6 @@ public class PokemonConsumerSQL implements CommandLineRunner {
 
 
 
-    public static void main(String[] args) {
-        SpringApplication.run(PokemonConsumerSQL.class);
-    }
 
     @Override
     public void run(String... args) {
@@ -37,3 +38,4 @@ public class PokemonConsumerSQL implements CommandLineRunner {
        // poke.ifPresent(pokemon -> System.out.println(pokemon.getTypes()));
     }
 }
+*/
