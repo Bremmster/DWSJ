@@ -9,11 +9,10 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        System.out.println("Hello, world!");
         Random random = new Random();
 
         // skapa typer
-        Pokemon pokemon = new Pokemon("test", random);
+        Pokemon pokemon = new Pokemon("Byta broker", random);
 
         System.out.println(pokemon);
         RestClient client = new RestClient();
