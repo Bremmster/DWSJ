@@ -12,7 +12,7 @@ public class Main {
         Random random = new Random();
 
         // skapa typer
-        Pokemon pokemon = new Pokemon("Byta broker", random);
+        Pokemon pokemon = new Pokemon("krånglar1", random);
 
         System.out.println(pokemon);
         RestClient client = new RestClient();
