@@ -2,9 +2,7 @@ package com.karlson;
 
 
 import com.karlson.application.Menu;
-import com.karlson.pokemondata.model.Pokemon;
-import com.karlson.service.RestClient;
-import java.util.Random;
+
 
 public class Main {
     public static void main(String[] args) {

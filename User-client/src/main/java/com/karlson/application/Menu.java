@@ -32,7 +32,7 @@ public class Menu {
             TextManager.mainMenu();
             switch (UserInputManager.getLimitedInt(1, 2)) {
                 case 1 -> findPokemonMenu();
-                case 2 -> kafkaConsumer.getKafkaData(true); // resets the message counter gets all messages
+                case 2 -> kafkaConsumer.getKafkaData(false); // resets the message counter gets all messages
                 case 9 -> {
                     System.exit(0);
                     return; // Sonarlint gets angry if its removed
