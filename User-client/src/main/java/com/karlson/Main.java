@@ -16,7 +16,7 @@ public class Main {
     }
 
     private static void testbedVersion1() {
-        Random random = new Random();
+       /* Random random = new Random();
 
         // skapa typer
         Pokemon pokemon = new Pokemon("back to dev!", random);
@@ -24,7 +24,7 @@ public class Main {
         System.out.println(pokemon);
         RestClient client = new RestClient();
         client.sendMessage(pokemon);
-
+*/
 
         // fråga om namn
 

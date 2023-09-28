@@ -22,6 +22,7 @@ public class RestClient {
         this.objectMapper = new ObjectMapper();
     }
 
+    @Deprecated
     public void sendMessage(Pokemon pokemon) {
         try {
             String postData = objectMapper.writeValueAsString(pokemon);
@@ -40,7 +41,7 @@ public class RestClient {
 
             // Get response
 
-            LOGGER.info(String.format("Response code -> %s", connection.getResponseCode()));
+            LOGGER.info(String.format("Depcricated client Response code -> %s", connection.getResponseCode()));
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;

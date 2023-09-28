@@ -2,32 +2,37 @@ package com.karlson.application;
 
 import com.karlson.application.helpers.TextManager;
 import com.karlson.application.helpers.UserInputManager;
+import com.karlson.kafka.KafkaConsumer;
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.HttpClient;
-import com.karlson.service.RestClient;
 
 import java.util.Random;
 
 public class Menu {
 
     Random random;
-    RestClient depircatedApiClient;
+
     HttpClient httpClient;
+
+    KafkaConsumer kafkaConsumer;
 
     public Menu() {
         this.random = new Random();
-        this.depircatedApiClient = new RestClient();
         this.httpClient = new HttpClient();
+        this.kafkaConsumer = new KafkaConsumer();
         mainMenu();
     }
 
     private void mainMenu() {
         while (true) {
+            // Get unconsumed messages from the kafka broker
+            kafkaConsumer.getKafkaData(false);
+
+
             TextManager.mainMenu();
             switch (UserInputManager.getLimitedInt(1, 2)) {
                 case 1 -> findPokemonMenu();
-                case 2 -> {
-                }//userMenu();
+                case 2 -> kafkaConsumer.getKafkaData(true); // resets the message counter gets all messages
                 case 9 -> {
                     System.exit(0);
                     return; // Sonarlint gets angry if its removed
@@ -44,7 +49,6 @@ public class Menu {
             switch (UserInputManager.getLimitedInt(1, 1)) {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
-                    // todo remove JSONObject jsonPokemon = new JSONObject(pokemon);
                     httpClient.postToWebAPI(pokemon);
                     return;
                 }
@@ -54,6 +58,4 @@ public class Menu {
             }
         }
     }
-
-
 }
