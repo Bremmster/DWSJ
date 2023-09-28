@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Deprecated
 public class RestClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
     private static final String API_URL = "http://localhost:8080/api/v1/pokemons/publish";
