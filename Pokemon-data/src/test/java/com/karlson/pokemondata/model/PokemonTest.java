@@ -23,23 +23,5 @@ class PokemonTest {
         assertEquals("first", pokemonTypes.get(0).getSlot());
         assertEquals("second", pokemonTypes.get(1).getSlot());
     }
-
-    /**
-     * Method under test: {@link Pokemon#Pokemon(String, Random)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testConstructor2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "java.util.Random.nextInt(int, int)" because "random" is null
-        //       at com.karlson.pokemondata.model.Pokemon.<init>(Pokemon.java:43)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        new Pokemon("Name", null);
-
-    }
 }
 
