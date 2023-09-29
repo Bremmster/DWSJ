@@ -21,7 +21,8 @@ public class TextManager {
         System.out.println("| Main menu                                  |");
         System.out.println(TOP_BORDER);
         System.out.println("| 1) Look for Pokémon                        |");
-        System.out.println("| 2) Reset Kafka consumer, get all messages  |");
+        System.out.println("| 2) Get all new messages from other sources |");
+        System.out.println("| 3) Reset Kafka consumer, get all messages  |");
         System.out.println("| 9) Exit                                    |");
         System.out.println(TOP_BORDER);
         System.out.print("Enter a option: ");

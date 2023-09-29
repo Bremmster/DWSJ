@@ -7,6 +7,8 @@ public class UserInputManager {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    private UserInputManager() {
+    }
 
     public static int getLimitedInt(int min, int max) {
         int input = getInt();

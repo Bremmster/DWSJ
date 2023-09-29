@@ -29,12 +29,13 @@ public class Menu {
             TextManager.viewPokemons(kafkaConsumer.getKafkaData(viewAllPokemons));
 
             TextManager.mainMenu();
-            switch (UserInputManager.getLimitedInt(1, 2)) {
+            switch (UserInputManager.getLimitedInt(1, 3)) {
                 case 1 -> {
                     viewAllPokemons = false;
                     findPokemonMenu();
                 }
-                case 2 -> viewAllPokemons = true;
+                case 2 -> viewAllPokemons = false;
+                case 3 -> viewAllPokemons = true;
                 case 9 -> {
                     System.exit(0);
                     return; // Sonarlint gets angry if its removed
@@ -52,7 +53,6 @@ public class Menu {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
                     httpClient.postToWebAPI(pokemon);
-
                     return;
                 }
                 case 9 -> {
