@@ -33,12 +33,12 @@ public class HttpClient {
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                 LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                throw new ParseException(e.toString());
             }
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
 

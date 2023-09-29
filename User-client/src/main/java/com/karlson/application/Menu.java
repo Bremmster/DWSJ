@@ -24,15 +24,18 @@ public class Menu {
     }
 
     private void mainMenu() {
-        while (true) {
-            // Get unconsumed messages from the kafka broker
-            kafkaConsumer.getKafkaData(false);
 
+        boolean viewAllPokemons = false; // true resets the message counter, gets all messages
+        while (true) {
+            // Views messages from kafka broker
+            TextManager.viewPokemons(kafkaConsumer.getKafkaData(viewAllPokemons));
 
             TextManager.mainMenu();
             switch (UserInputManager.getLimitedInt(1, 2)) {
-                case 1 -> findPokemonMenu();
-                case 2 -> kafkaConsumer.getKafkaData(false); // resets the message counter gets all messages
+                case 1 -> { viewAllPokemons = false;
+                    findPokemonMenu();
+                }
+                case 2 -> viewAllPokemons = true;
                 case 9 -> {
                     System.exit(0);
                     return; // Sonarlint gets angry if its removed

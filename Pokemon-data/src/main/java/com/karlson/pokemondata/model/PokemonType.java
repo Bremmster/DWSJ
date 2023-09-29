@@ -38,4 +38,8 @@ public class PokemonType {
                 ", type='" + type + '\'' +
                 '}';
     }
+
+    public String toPrettyString() {
+        return "slot: " + slot + ", type: " + type;
+    }
 }

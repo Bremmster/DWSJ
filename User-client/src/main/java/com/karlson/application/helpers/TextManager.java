@@ -2,6 +2,8 @@ package com.karlson.application.helpers;
 
 import com.karlson.pokemondata.model.Pokemon;
 
+import java.util.List;
+
 public class TextManager {
 
     private static final String TOP_BORDER = "+--------------------------------------------+";
@@ -13,6 +15,7 @@ public class TextManager {
     public static void notValidInt() {
         System.out.print("Not an Integer\nPleaser enter Integer: ");
     }
+
     public static void notValidChoice() {
         System.out.println("Not a valid choice. Better luck next time \nPlease try again: ");
     }
@@ -35,6 +38,14 @@ public class TextManager {
         System.out.println("| 1: Set name and send to API                |");
         System.out.println("| 9: Return to main menu                     |");
         System.out.println(TOP_BORDER);
+    }
+
+    public static void viewPokemons(List<Pokemon> pokemons) {
+
+        for (Pokemon pokemon : pokemons) {
+            System.out.println(pokemon.toPrettyString());
+        }
+
     }
 
     public void notValidData() {
