@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Deprecated
 public class RestClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
     private static final String API_URL = "http://localhost:8080/api/v1/pokemons/publish";
@@ -21,6 +22,7 @@ public class RestClient {
         this.objectMapper = new ObjectMapper();
     }
 
+    @Deprecated
     public void sendMessage(Pokemon pokemon) {
         try {
             String postData = objectMapper.writeValueAsString(pokemon);
@@ -39,7 +41,7 @@ public class RestClient {
 
             // Get response
 
-            LOGGER.info(String.format("Response code -> %s", connection.getResponseCode()));
+            LOGGER.info(String.format("Depcricated client Response code -> %s", connection.getResponseCode()));
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;

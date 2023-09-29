@@ -33,9 +33,6 @@ public class PokemonType {
 
     @Override
     public String toString() {
-        return "PokemonType{" +
-                "slot=" + slot +
-                ", type='" + type + '\'' +
-                '}';
+        return "slot: " + slot + ", type: " + type;
     }
 }

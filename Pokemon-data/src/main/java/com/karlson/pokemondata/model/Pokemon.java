@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
@@ -49,7 +50,7 @@ public class Pokemon {
 
         this.pokemonTypes = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            pokemonTypes.add(new PokemonType((i == 0 ? "first": "second" ), GivePokemonType.get(random)));
+            pokemonTypes.add(new PokemonType((i == 0 ? "first" : "second"), GivePokemonType.get(random)));
         }
     }
 
@@ -128,5 +129,15 @@ public class Pokemon {
                 ", defence=" + defence +
                 ", pokemonTypes=" + pokemonTypes +
                 '}';
+    }
+
+    public String toPrettyString() {
+        return "pokedex number: " + pokedexNumber +
+                "\nname: " + name +
+                "\ntotal: " + total +
+                "\nhp: " + hp +
+                "\nattack: " + attack +
+                "\ndefence: " + defence +
+                "\ntypes: " + pokemonTypes;
     }
 }
