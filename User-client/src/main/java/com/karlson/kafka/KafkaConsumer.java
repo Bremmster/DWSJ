@@ -1,6 +1,6 @@
 package com.karlson.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.karlson.pokemondata.model.Pokemon;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -20,7 +20,7 @@ import java.util.Properties;
 public class KafkaConsumer {
 
     private static final String TOPIC_NAME = "pokemons";
-    private static Properties properties;
+    private final Properties properties;
 
     public KafkaConsumer() {
         properties = new Properties();

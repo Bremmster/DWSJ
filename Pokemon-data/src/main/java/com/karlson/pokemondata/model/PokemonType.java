@@ -33,13 +33,6 @@ public class PokemonType {
 
     @Override
     public String toString() {
-        return "PokemonType{" +
-                "slot=" + slot +
-                ", type='" + type + '\'' +
-                '}';
-    }
-
-    public String toPrettyString() {
         return "slot: " + slot + ", type: " + type;
     }
 }

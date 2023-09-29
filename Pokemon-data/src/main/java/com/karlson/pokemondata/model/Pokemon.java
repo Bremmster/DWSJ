@@ -134,7 +134,7 @@ public class Pokemon {
     public String toPrettyString() {
         return "pokedex number: " + pokedexNumber +
                 "\nname: " + name +
-                "\ntotal:" + total +
+                "\ntotal: " + total +
                 "\nhp: " + hp +
                 "\nattack: " + attack +
                 "\ndefence: " + defence +

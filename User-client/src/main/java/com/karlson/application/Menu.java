@@ -11,9 +11,7 @@ import java.util.Random;
 public class Menu {
 
     Random random;
-
     HttpClient httpClient;
-
     KafkaConsumer kafkaConsumer;
 
     public Menu() {
@@ -32,7 +30,8 @@ public class Menu {
 
             TextManager.mainMenu();
             switch (UserInputManager.getLimitedInt(1, 2)) {
-                case 1 -> { viewAllPokemons = false;
+                case 1 -> {
+                    viewAllPokemons = false;
                     findPokemonMenu();
                 }
                 case 2 -> viewAllPokemons = true;
@@ -53,6 +52,7 @@ public class Menu {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
                     httpClient.postToWebAPI(pokemon);
+
                     return;
                 }
                 case 9 -> {

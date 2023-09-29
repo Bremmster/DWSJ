@@ -8,10 +8,6 @@ public class TextManager {
 
     private static final String TOP_BORDER = "+--------------------------------------------+";
 
-    public static void pokemonNewName() {
-        System.out.print("Set username: ");
-    }
-
     public static void notValidInt() {
         System.out.print("Not an Integer\nPleaser enter Integer: ");
     }
@@ -34,22 +30,22 @@ public class TextManager {
     public static void findPokemon(Pokemon pokemon) {
         System.out.println(TOP_BORDER);
         System.out.println("| You found:                                 |");
-        System.out.println("| " + pokemon.toString());
+        System.out.println("| " + pokemon.toPrettyString());
         System.out.println("| 1: Set name and send to API                |");
         System.out.println("| 9: Return to main menu                     |");
         System.out.println(TOP_BORDER);
+        System.out.print("Enter a option: ");
     }
 
     public static void viewPokemons(List<Pokemon> pokemons) {
-
+        System.out.println(TOP_BORDER);
+        System.out.println("Message from Kafka broker: ");
         for (Pokemon pokemon : pokemons) {
             System.out.println(pokemon.toPrettyString());
         }
-
     }
 
     public void notValidData() {
         System.out.println("Sorry i wont allow that");
     }
-
 }
