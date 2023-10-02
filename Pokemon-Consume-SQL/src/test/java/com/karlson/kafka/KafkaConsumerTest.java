@@ -37,7 +37,7 @@ class KafkaConsumerTest {
         pokemon.setId(1L);
         pokemon.setName("Name");
         pokemon.setPokedexNumber(10);
-        pokemon.setPokemonTypes(new ArrayList<>());
+        pokemon.setTypes(new ArrayList<>());
         pokemon.setTotal(1);
         when(pokemonRepository.save(Mockito.<Pokemon>any())).thenReturn(pokemon);
 
@@ -48,7 +48,7 @@ class KafkaConsumerTest {
         pokemon2.setId(1L);
         pokemon2.setName("Name");
         pokemon2.setPokedexNumber(10);
-        pokemon2.setPokemonTypes(new ArrayList<>());
+        pokemon2.setTypes(new ArrayList<>());
         pokemon2.setTotal(1);
         kafkaConsumer.consumeJson(pokemon2);
         verify(pokemonRepository).save(Mockito.<Pokemon>any());
