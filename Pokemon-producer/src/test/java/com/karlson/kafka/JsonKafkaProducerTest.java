@@ -41,7 +41,7 @@ class JsonKafkaProducerTest {
         data.setId(1L);
         data.setName("Name");
         data.setPokedexNumber(10);
-        data.setPokemonTypes(new ArrayList<>());
+        data.setTypes(new ArrayList<>());
         data.setTotal(1);
         jsonKafkaProducer.sendMessage(data);
         verify(kafkaTemplate).send(Mockito.<Message<Object>>any());
