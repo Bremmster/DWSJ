@@ -33,7 +33,8 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
     ```
 How to use:
 Start Kafka Zookeper with default config
-Start one or more kafka brokers on localhost ports 9093-9095, customized configs is located in kafkaConfigs
+Start one or more kafka brokers on localhost ports 9092-9094, customized configs is located in kafkaConfigs
+You will need to set the logging directory's in the kafka server.properties files
 Start a mysql server on port localhost:3306 make a Schema "pokedb"
 create "user" with "password" and give them privileges to the schema
 for testing create schema "testdb" and a user "test" password "test" with privileges to schema
