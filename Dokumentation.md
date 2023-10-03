@@ -63,7 +63,13 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 7. Installera mySQL server https://www.mysql.com/
 8. Skapa schema "pokedb" och koppla till användare "user" med lösenord "password" med rättigheter till schemat
    1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
-9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter 
+9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter till schemat
+   1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
+10. Starta modulen Pokemon-producer den kräver tillgång till port 8080
+11. Starta modulen Pokemon-consume-SQL
+12. Starta modulen User-Client
+
+
 
 How to use:
 Start Kafka Zookeper with default config
