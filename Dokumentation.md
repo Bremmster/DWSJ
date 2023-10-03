@@ -5,13 +5,17 @@
 ## Systemintegration 45 YHP
 
 ### Beskrivning av projektet
+### Vad du har gjort
 
-Projektet består av tre en klientapplikation som slumpar fram fiktiva Pokémon som skickas till ett webAPI.  
+Skapat ett projekt med 4 moduler. En konsol Client, WebApi/Kafka Producer, Kafka consumer som sparar i mySQL databas. En
+Modul med Objektet Som ska hanteras av alla moduler.
+
+Projektet består av tre moduler en klientapplikation som slumpar fram fiktiva Pokémon som skickas till ett webAPI.  
 webApi skickar sen vidare payload på ett Kafka topic. Topic läses av en Kafka consumer som sparar objekten i en mySQL
 databas.  
 Klientapplikationen läser av samma topic så man kan visuellt bekräfta att informationen har skickats på topic.
 
-### Grovplanering
+### Flödesschema
 
 ```mermaid
 stateDiagram-v2
@@ -19,11 +23,11 @@ stateDiagram-v2
     ClientApplication --> webAPI/KafkaProducer: pokemon
     webAPI/KafkaProducer
     webAPI/KafkaProducer --> KafkaTopic: pokemon
-    KafkaTopic --> mySQL: pokemon
+    KafkaTopic --> mySQL/KafkaConsumer: pokemon
     KafkaTopic --> ClientApplication: pokemon
 ```
 
-En pokemon är ett objekt. i Json ser du ut såhär:  
+En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser en pokemon ut såhär:  
 ```json
 {  
     "pokedexNumber": 6,  
@@ -44,6 +48,34 @@ En pokemon är ett objekt. i Json ser du ut såhär:
     ]  
 }  
 ``` 
+### Starta applikationen
+
+1. Ladda ner Apache Kafka från https://kafka.apache.org/ applikationen är testad med version 3.5.1  
+2. Extrahera nedladdningen till valfri mapp på din dator.
+3. Kopiera filerna server1.properties, server2.properties & server3.properties från DWSJ/kafkaConfigs till din installation av Kafka/config
+4. I varje server.properties fil på rad 62 konfigurera mappen som kafkas message broker ska logga filerna, varje broker kräver en separat mapp. Exempel: log.dirs=C:\temp\kakfa\logs\broker92\kafka-logs
+5. Öppna filen kafka/config/zookeeper.properties och ställ in lämplig mapp exempelvis: dataDir=C:\temp\kakfa\logs\zookeeper
+6. Öppna fyra stycken terminaler i din kafka mapp. Kör ett kommando i vardera terminal  
+   1. .\bin\windows\zookeeper-server-start.sh config\zookeeper.properties
+   2. .\bin\windows\kafka-server-start.sh config\server1.properties
+   3. .\bin\windows\kafka-server-start.sh config\server2.properties
+   4. .\bin\windows\kafka-server-start.sh config\server3.properties
+7. Installera mySQL server https://www.mysql.com/
+8. Skapa schema "pokedb" och koppla till användare "user" med lösenord "password" med rättigheter till schemat
+   1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
+9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter 
+
+How to use:
+Start Kafka Zookeper with default config
+Start one or more kafka brokers on localhost ports 9092-9094, customized configs is located in kafkaConfigs
+You will need to set the logging directory's in the kafka server.properties files
+Start a mysql server on port localhost:3306 make a Schema "pokedb"
+create "user" with "password" and give them privileges to the schema
+for testing create schema "testdb" and a user "test" password "test" with privileges to schema
+
+Run module "Pokemon producer" to get the web api running att localhost:8080
+Run module "Pokemon-consume-SQL" to store all the Pokémons in the database
+The "User-client" is a client application with a console menu. It will find random pokémons and the user can give the pokemon a name and send it to the webAPI
 
 ### Konfiguration av Kafka kluster
 
@@ -58,10 +90,7 @@ felhantering för att säkerställa hög tillgänglighet.
 ● Utöka dokumentationen med en djupare förståelse av de val
 du gjort avseende konfiguration, säkerhet och optimering.
 
-### Vad du har gjort
 
-Skapat ett projekt med 4 moduler. En konsol Client, WebApi/Kafka Producer, Kafka consumer som sparar i mySQL databas. En
-Modul med Objektet Som ska hanteras av alla moduler.
 
 ## Arbetet och dess genomförande
 
