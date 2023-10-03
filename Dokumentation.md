@@ -25,12 +25,12 @@ Skapat ett projekt med 4 moduler. En konsol Client, WebApi/Kafka Producer, Kafka
 ## Arbetet och dess genomförande
 
 ### Vad som varit svårt
-Inledningsvis fanns det problem med att återskapa objekten från kafka meddelanden, mycket berodde på att objekten var definierade i varje modul.  
-Det var krångligt att spara objekten på i databasen på önskat sätt
+Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till egen modul blev ändringar lättare att genomföra.  
+Dependecys i moduler att rätt ska är på rätt plats.
 
 ### Beskriv lite olika lösningar du gjort
 Bröts ut objekten till egen modul, då följde förändringar med genom alla moduler. Använde mig av "create-drop" av databasen för att snabbt kunna testa olika lösningar.
-Kört MySQL och Kafka i Docker containers
+Kört MySQL och Kafka i Docker containers, väldigt smidigt!
 
 ### Beskriv något som var besvärligt att få till
 Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet.
@@ -47,7 +47,8 @@ Applikationerna fungerar bra, lätt att bygga vidare på förändringar i objekt
 Linux är mycket stabil och bra utvecklingsmiljö för kafka projekt.
 
 ### Vad gick dåligt
-Skrev massa kul kod för att hantera objekt och tables i databaser, helt i onödan. En grundtanke var att  
+Skrev massa kul kod för att hantera objekt och tables i databaser, helt i onödan.  
+Det är stökigt med dependecys i de olka modulerna
 
 ### Vad har du lärt dig
 Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka, Docker
@@ -56,4 +57,4 @@ Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka
 Redan från början skapat projektet med moduler.
 
 ### Vilka möjligheter ser du med de kunskaper du fått under kursen.
-Implementera och använda kafkalösningar för kommunikation mellan appar
+Implementera och använda kafkalösningar för kommunikation mellan appar. Smidigt lagrade av data med JPA. 

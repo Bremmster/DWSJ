@@ -5,8 +5,8 @@
 Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
 
 - What was your motivation?
-  - Learn to use Springboot, Apache Kafka   how to setup and use Kafka message brokers, and write
-  - Springboot 
+  - Learn to use Springboot, How to set up and use Kafka message brokers, and write a multimodule project.
+ 
 - Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
 - What problem does it solve?
   - Sending messages in realtime avoiding star/spagetti integration patterns
@@ -25,6 +25,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
 -download and run kafka, give examples.
+
 -use the server.properties, set up the storage path
 
 
@@ -45,10 +46,9 @@ Start a mysql server on port localhost:3306 make a Schema "pokedb"
 create "user" with "password" and give them privileges to the schema
 for testing create schema "testdb" and a user "test" password "test" with privileges to schema
 
-                Run module "Pokemon producer" to get the web api running att localhost:8080
-                Run module "Pokemon-consume-SQL" to store all the Pokémons in the database
-                The "User-client" is a client application with a console menu.
-                It will find random pokémons and the user can give the pokemon a name and send it to the webAPI
+Run module "Pokemon producer" to get the web api running att localhost:8080
+Run module "Pokemon-consume-SQL" to store all the Pokémons in the database
+The "User-client" is a client application with a console menu. It will find random pokémons and the user can give the pokemon a name and send it to the webAPI
 
 
 
