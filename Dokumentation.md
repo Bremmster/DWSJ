@@ -68,6 +68,7 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 10. Starta modulen Pokemon-producer den kräver tillgång till port 8080
 11. Starta modulen Pokemon-consume-SQL
 12. Starta modulen User-Client
+13. Testa applikationen.
 
 
 
@@ -88,6 +89,9 @@ The "User-client" is a client application with a console menu. It will find rand
 Skriv dokumentation som beskriver ditt Apache Kafka-klusters
 konfiguration och hur producenten och konsumenterna är
 implementerade.
+
+
+
 vg:  
 Optimering: Utvärdera och implementera effektiva sätt att
 skicka och behandla meddelanden i ditt Kafka-kluster.
