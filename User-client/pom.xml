@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.karlson</groupId>
             <artifactId>Pokemon-data</artifactId>
             <version>0.0.1-SNAPSHOT</version>
