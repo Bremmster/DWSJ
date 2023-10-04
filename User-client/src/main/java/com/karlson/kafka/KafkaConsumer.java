@@ -28,7 +28,7 @@ public class KafkaConsumer {
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "fetchingGroup");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
-        properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
+        properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class); // class.getName()
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put("spring.json.trusted.packages", "*");
     }
@@ -42,7 +42,7 @@ public class KafkaConsumer {
         if (Boolean.TRUE.equals(reset)) {
             consumer.seekToBeginning(consumer.assignment());
         }
-        ConsumerRecords<String, Pokemon> records = consumer.poll(Duration.ofMillis(1000));
+        ConsumerRecords<String, Pokemon> records = consumer.poll(Duration.ofMillis(9000));
         for (ConsumerRecord<String, Pokemon> consumerRecord : records) {
             pokemonList.add(consumerRecord.value());
         }

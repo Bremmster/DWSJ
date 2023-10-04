@@ -13,8 +13,8 @@
     </root>
 
     <!-- Disable logging for all other loggers -->
-    <logger name="org.springframework" level="OFF" />
-    <logger name="org.apache.kafka" level="OFF" />
-    <logger name="org.apache.zookeeper" level="OFF" />
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.apache.kafka" level="INFO" />
+    <logger name="org.apache.zookeeper" level="INFO" />
     <!-- Add more loggers for libraries you want to mute -->
 </configuration>
