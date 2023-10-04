@@ -42,7 +42,7 @@ public class KafkaConsumer {
         if (Boolean.TRUE.equals(reset)) {
             consumer.seekToBeginning(consumer.assignment());
         }
-        ConsumerRecords<String, Pokemon> records = consumer.poll(Duration.ofMillis(9000));
+        ConsumerRecords<String, Pokemon> records = consumer.poll(Duration.ofMillis(1000));
         for (ConsumerRecord<String, Pokemon> consumerRecord : records) {
             pokemonList.add(consumerRecord.value());
         }
