@@ -22,7 +22,7 @@ public class HttpClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/pokemons/publish");
 
-    public void postToWebAPI(Pokemon pokemon) {
+    public int postToWebAPI(Pokemon pokemon) {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
@@ -32,6 +32,7 @@ public class HttpClient {
 
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                 LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
+                return response.getCode();
             } catch (ParseException e) {
                 throw new ParseException(e.toString());
             }
@@ -41,7 +42,5 @@ public class HttpClient {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }
