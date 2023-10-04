@@ -44,7 +44,7 @@ class PokemonMessageControllerTest {
         pokemon.setId(1L);
         pokemon.setName("Name");
         pokemon.setPokedexNumber(10);
-        pokemon.setPokemonTypes(new ArrayList<>());
+        pokemon.setTypes(new ArrayList<>());
         pokemon.setTotal(1);
         String content = (new ObjectMapper()).writeValueAsString(pokemon);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/v1/pokemons/publish")

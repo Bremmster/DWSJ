@@ -1,6 +1,6 @@
 package com.karlson.pokemondata.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.karlson.pokemondata.util.GivePokemonType;
 import jakarta.persistence.*;
 
@@ -22,22 +22,21 @@ public class Pokemon {
     private int hp;
     private int attack;
     private int defence;
-    @JsonProperty("types")
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "pokemon_types")
-    private List<PokemonType> pokemonTypes;
+    private List<PokemonType> types;
 
     public Pokemon() {
     }
 
-    public Pokemon(int pokedexNumber, String name, int total, int hp, int attack, int defence, List<PokemonType> pokemonTypes) {
+    public Pokemon(int pokedexNumber, String name, int total, int hp, int attack, int defence, List<PokemonType> types) {
         this.pokedexNumber = pokedexNumber;
         this.name = name;
         this.total = total;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
-        this.pokemonTypes = pokemonTypes;
+        this.types = types;
     }
 
     public Pokemon(String name, Random random) { // to generate new pokemons in the user client
@@ -48,9 +47,9 @@ public class Pokemon {
         this.defence = random.nextInt(0, 100);
         this.total = attack + defence + hp;
 
-        this.pokemonTypes = new ArrayList<>();
+        this.types = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            pokemonTypes.add(new PokemonType((i == 0 ? "first" : "second"), GivePokemonType.get(random)));
+            types.add(new PokemonType((i == 0 ? "first" : "second"), GivePokemonType.get(random)));
         }
     }
 
@@ -110,12 +109,12 @@ public class Pokemon {
         this.defence = defence;
     }
 
-    public List<PokemonType> getPokemonTypes() {
-        return pokemonTypes;
+    public List<PokemonType> getTypes() {
+        return types;
     }
 
-    public void setPokemonTypes(List<PokemonType> pokemonTypes) {
-        this.pokemonTypes = pokemonTypes;
+    public void setTypes(List<PokemonType> pokemonTypes) {
+        this.types = pokemonTypes;
     }
 
     @Override
@@ -127,7 +126,7 @@ public class Pokemon {
                 ", hp=" + hp +
                 ", attack=" + attack +
                 ", defence=" + defence +
-                ", pokemonTypes=" + pokemonTypes +
+                ", pokemonTypes=" + types +
                 '}';
     }
 
@@ -138,6 +137,6 @@ public class Pokemon {
                 "\nhp: " + hp +
                 "\nattack: " + attack +
                 "\ndefence: " + defence +
-                "\ntypes: " + pokemonTypes;
+                "\ntypes: " + types;
     }
 }

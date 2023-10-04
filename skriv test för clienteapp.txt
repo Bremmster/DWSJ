@@ -1,0 +1,15 @@
+Skriv tester för klient applicationen
+
+Tester i skarpt kafka topic eller skapa ett test topic som inte sparas i db? hur löser webAPi det enum för topics?
+
+
+@Before all skapa objekt
+
+Skapa ordning på testen
+1. send to API
+	kolla svaret är 200 message sent to topic <- kolla exakt fromatering
+	kräver att svarskoden retuneras som int eller kanske en string array?
+	assertEqual 200, int
+2. ta imot objekt igen och kolla at det stämmer
+	matcha objekt egenskap from before all och retunerat objekt.
+	kafka.getdata() <- exempel = before all

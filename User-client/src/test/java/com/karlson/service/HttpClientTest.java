@@ -13,7 +13,6 @@ import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.pokemondata.model.PokemonType;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,7 @@ class HttpClientTest {
             doNothing().when(pokemon).setId(anyLong());
             doNothing().when(pokemon).setName(Mockito.<String>any());
             doNothing().when(pokemon).setPokedexNumber(anyInt());
-            doNothing().when(pokemon).setPokemonTypes(Mockito.<List<PokemonType>>any());
+            doNothing().when(pokemon).setTypes(Mockito.<List<PokemonType>>any());
             doNothing().when(pokemon).setTotal(anyInt());
             pokemon.setAttack(1);
             pokemon.setDefence(1);
@@ -53,7 +52,7 @@ class HttpClientTest {
             pokemon.setId(1L);
             pokemon.setName("Name");
             pokemon.setPokedexNumber(10);
-            pokemon.setPokemonTypes(new ArrayList<>());
+            pokemon.setTypes(new ArrayList<>());
             pokemon.setTotal(1);
             assertThrows(RuntimeException.class, () -> httpClient.postToWebAPI(pokemon));
             verify(pokemon).getAttack();
@@ -69,7 +68,7 @@ class HttpClientTest {
             verify(pokemon).setId(anyLong());
             verify(pokemon).setName(Mockito.<String>any());
             verify(pokemon).setPokedexNumber(anyInt());
-            verify(pokemon).setPokemonTypes(Mockito.<List<PokemonType>>any());
+            verify(pokemon).setTypes(Mockito.<List<PokemonType>>any());
             verify(pokemon).setTotal(anyInt());
         }
     }

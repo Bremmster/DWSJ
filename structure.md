@@ -1,3 +1,4 @@
+@Deprecated  
 First plan of structure
 Only one topic in kafka
 ```mermaid
