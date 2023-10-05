@@ -3,6 +3,7 @@ package com.karlson.application;
 import com.karlson.kafka.KafkaConsumer;
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.HttpClient;
+import org.apache.hc.core5.http.HttpException;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
@@ -30,7 +31,12 @@ class TestApiAndKafka {
     void webApiTest() {
 
         int expected = 200; // http response code
-        int ActualResponse = httpClient.postToWebAPI(testPokemon);
+        int ActualResponse = 0;
+        try {
+            ActualResponse = httpClient.post(testPokemon);
+        } catch (HttpException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(expected, ActualResponse);
 
     }
@@ -42,7 +48,7 @@ class TestApiAndKafka {
         String name = testPokemon.getName();
         int total = testPokemon.getTotal();
         // Act
-        List<Pokemon> pokemonList = kafkaConsumer.getKafkaData(false);
+        List<Pokemon> pokemonList = kafkaConsumer.fetchKafkaData(false);
         Pokemon kafkaPokemon = pokemonList.get(pokemonList.size() - 1);
         // Assert
         assertEquals(name, kafkaPokemon.getName());

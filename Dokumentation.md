@@ -54,51 +54,43 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 2. Extrahera nedladdningen till valfri mapp på din dator.
 3. Kopiera filerna server1.properties, server2.properties & server3.properties från DWSJ/kafkaConfigs till din installation av Kafka/config
 4. I varje server.properties fil på rad 62 konfigurera mappen som kafkas message broker ska logga filerna, varje broker kräver en separat mapp. Exempel: log.dirs=C:\temp\kakfa\logs\broker92\kafka-logs
-5. Öppna filen kafka/config/zookeeper.properties och ställ in lämplig mapp exempelvis: dataDir=C:\temp\kakfa\logs\zookeeper
+5. Öppna filen kafka/config/zookeeper.properties och ställ in lämplig mapp för loggning exempelvis: dataDir=C:\temp\kakfa\logs\zookeeper
 6. Öppna fyra stycken terminaler i din kafka mapp. Kör ett kommando i vardera terminal  
    1. .\bin\windows\zookeeper-server-start.sh config\zookeeper.properties
    2. .\bin\windows\kafka-server-start.sh config\server1.properties
    3. .\bin\windows\kafka-server-start.sh config\server2.properties
    4. .\bin\windows\kafka-server-start.sh config\server3.properties
-7. Installera mySQL server https://www.mysql.com/
+7. Installera mySQL server https://www.mysql.com/ på port 3306
 8. Skapa schema "pokedb" och koppla till användare "user" med lösenord "password" med rättigheter till schemat
    1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
 9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter till schemat
    1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
-10. Starta modulen Pokemon-producer den kräver tillgång till port 8080
+10. Starta modulen Pokemon-producer den använder port 8080
 11. Starta modulen Pokemon-consume-SQL
 12. Starta modulen User-Client
-13. Testa applikationen.
+13. Använd klient applikationen. 
 
 
 
-How to use:
-Start Kafka Zookeper with default config
-Start one or more kafka brokers on localhost ports 9092-9094, customized configs is located in kafkaConfigs
-You will need to set the logging directory's in the kafka server.properties files
-Start a mysql server on port localhost:3306 make a Schema "pokedb"
-create "user" with "password" and give them privileges to the schema
-for testing create schema "testdb" and a user "test" password "test" with privileges to schema
 
-Run module "Pokemon producer" to get the web api running att localhost:8080
-Run module "Pokemon-consume-SQL" to store all the Pokémons in the database
-The "User-client" is a client application with a console menu. It will find random pokémons and the user can give the pokemon a name and send it to the webAPI
+
 
 ### Konfiguration av Kafka kluster
 
-Skriv dokumentation som beskriver ditt Apache Kafka-klusters
-konfiguration och hur producenten och konsumenterna är
-implementerade.
+Skriv dokumentation som beskriver ditt Apache Kafka-klusters konfiguration och hur producenten och konsumenterna är implementerade.
+För projektet används ett kafkakluster med en zookeeper och tre stycken brokers. Alla instanser kördes lokalt.
+För att göra systemet mer tillgängligt i produktionsmiljö kan man använda sig av flera zookeepers som körs på olika hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar.  
+I produktionsmiljö ska man ha 3 eller fler message brokers för att säkerställa tillgänglighet och redundans. Brokers ska gå på olika servrar ha unikt rack id när så är fallet, och vara placerade på ett lämpligt sätt bland producerande och konsumerande klienter för säkerställa snabb meddelandeöverföring.
 
+Det är kritiskt att man ställer replikeringsfaktorn för topic till tre eller högre för säkerställa att meddelanden sprids över flera brokers. Det säkerställer att topic är tillgänglig även om server är nere för planerat eller oplanerat underhåll 
+"Log Flush Policy" är inställningar för när data på en kafka broker skrivs till hårddisk. Det är en balansgång mellan stora skrivjobb som kan ge laggspikar och små skrivjobb som ger mer söktid. 
 
+Om man ska skapa en kafka consumer som läser ifrån flera topics så använder man sig av java regex för att ange topics. Har man redan i planeringsskedet tänkt till med topic namnen blir regex uttrycket mycket lättare att skapa. 
 
 vg:  
-Optimering: Utvärdera och implementera effektiva sätt att
-skicka och behandla meddelanden i ditt Kafka-kluster.
-● Konfigurera Apache Kafka för att hantera replikering och
-felhantering för att säkerställa hög tillgänglighet.
-● Utöka dokumentationen med en djupare förståelse av de val
-du gjort avseende konfiguration, säkerhet och optimering.
+Optimering: Utvärdera och implementera effektiva sätt att skicka och behandla meddelanden i ditt Kafka-kluster.
+● Konfigurera Apache Kafka för att hantera replikering och felhantering för att säkerställa hög tillgänglighet.
+● Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
 
 
 
@@ -106,18 +98,20 @@ du gjort avseende konfiguration, säkerhet och optimering.
 
 ### Vad som varit svårt
 
+Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler
 Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till
 egen modul blev ändringar lättare att genomföra.  
 Dependecys i moduler att rätt ska är på rätt plats.
 
 ### Beskriv lite olika lösningar du gjort
 
-Bröts ut objekten till egen modul, då följde förändringar med genom alla moduler. Använde mig av "create-drop" av
+Bröts ut objekten till egen modul, det underlättade genomförandet av förändringar i objektet. Under  då följde förändringar med genom alla moduler. Använde mig av "create-drop" av
 databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
 
 ### Beskriv något som var besvärligt att få till
 
+Att använda för mig nya dependecys innan man hittar rätt strategi för att skapa önskad functionality. 
 Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet.
 Dezerializera json kafka meddelanden som objekt
 

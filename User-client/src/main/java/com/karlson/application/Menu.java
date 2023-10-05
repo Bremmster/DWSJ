@@ -5,14 +5,15 @@ import com.karlson.application.helpers.UserInputManager;
 import com.karlson.kafka.KafkaConsumer;
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.HttpClient;
+import org.apache.hc.core5.http.HttpException;
 
 import java.util.Random;
 
 public class Menu {
 
-    Random random;
-    HttpClient httpClient;
-    KafkaConsumer kafkaConsumer;
+    private Random random;
+    private HttpClient httpClient;
+    private KafkaConsumer kafkaConsumer;
 
     public Menu() {
         this.random = new Random();
@@ -24,18 +25,20 @@ public class Menu {
     private void mainMenu() {
 
         boolean viewAllPokemons = false; // true resets the message counter, gets all messages
+
         while (true) {
-            // Views messages from kafka broker
-            TextManager.viewPokemons(kafkaConsumer.getKafkaData(viewAllPokemons));
+
+            TextManager.viewPokemons(kafkaConsumer.fetchKafkaData(viewAllPokemons));
 
             TextManager.mainMenu();
+
             switch (UserInputManager.getLimitedInt(1, 3)) {
                 case 1 -> {
                     viewAllPokemons = false;
                     findPokemonMenu();
                 }
-                case 2 -> viewAllPokemons = false;
-                case 3 -> viewAllPokemons = true;
+                case 2 -> viewAllPokemons = false; // check kafka topic for updates
+                case 3 -> viewAllPokemons = true; // Reset Kafka consumer, get all messages
                 case 9 -> {
                     System.exit(0);
                     return; // Sonarlint gets angry if its removed
@@ -52,8 +55,13 @@ public class Menu {
             switch (UserInputManager.getLimitedInt(1, 1)) {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
-                    httpClient.postToWebAPI(pokemon);
-                    return;
+
+                    try {
+                        httpClient.post(pokemon);
+                    } catch (HttpException e) {
+                        throw new RuntimeException(e);
+                    }
+                        return;
                 }
                 case 9 -> {
                     return;

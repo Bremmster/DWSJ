@@ -1,6 +1,5 @@
 package com.karlson.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.karlson.pokemondata.model.Pokemon;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -8,6 +7,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpException;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -22,7 +22,7 @@ public class HttpClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/pokemons/publish");
 
-    public int postToWebAPI(Pokemon pokemon) {
+    public int post(Pokemon pokemon) throws HttpException {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
@@ -30,17 +30,24 @@ public class HttpClient {
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
 
-            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
-                return response.getCode();
-            } catch (ParseException e) {
-                throw new ParseException(e.toString());
-            }
+            return execute(httpClient);
 
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+        } catch (ParseException | IOException e) {
+            LOGGER.warn("message post fail! 503 restAPI not available");
+            throw new HttpException("http post failed! %s".formatted(e));
+        }
+//        return 503;
+    }
+
+    private int execute(CloseableHttpClient httpClient) throws IOException, ParseException {
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+
+            LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
+
+            return response.getCode();
+
+        } catch (ParseException e) {
+            throw new ParseException(e.toString());
         }
     }
 }

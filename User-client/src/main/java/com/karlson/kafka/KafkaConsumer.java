@@ -33,7 +33,7 @@ public class KafkaConsumer {
         properties.put("spring.json.trusted.packages", "*");
     }
 
-    public List<Pokemon> getKafkaData(Boolean reset) {
+    public List<Pokemon> fetchKafkaData(Boolean reset) {
         List<Pokemon> pokemonList = new ArrayList<>();
 
         Consumer<String, Pokemon> consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(properties);
