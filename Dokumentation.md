@@ -8,7 +8,7 @@
 ### Vad du har gjort
 
 Skapat ett projekt med 4 moduler. En konsol Client, WebApi/Kafka Producer, Kafka consumer som sparar i mySQL databas. En
-Modul med Objektet Som ska hanteras av alla moduler.
+Modul med Objektet Som ska används av alla moduler.
 
 Projektet består av tre moduler en klientapplikation som slumpar fram fiktiva Pokémon som skickas till ett webAPI.  
 webApi skickar sen vidare payload på ett Kafka topic. Topic läses av en Kafka consumer som sparar objekten i en mySQL
@@ -32,7 +32,7 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 {  
     "pokedexNumber": 6,  
     "name": "Charizard",  
-    "total": 534,  
+    "total": 240,  
     "hp": 78,  
     "attack": 84,  
     "defence": 78,  
@@ -67,8 +67,7 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
    1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
 10. Starta modulen kafkaProducer-restApi den använder port 8080
 11. Starta modulen kafkaConsumer-mySQL
-12. Starta modulen User-Client
-13. Använd klient applikationen. 
+12. Starta modulen User-Client, använd klient applikationen. 
 
 
 
@@ -77,15 +76,31 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 
 ### Konfiguration av Kafka kluster
 
-Skriv dokumentation som beskriver ditt Apache Kafka-klusters konfiguration och hur producenten och konsumenterna är implementerade.
+#### Skriv dokumentation som beskriver ditt Apache Kafka-klusters konfiguration och hur producenten och konsumenterna är implementerade.
 För projektet används ett kafkakluster med en zookeeper och tre stycken brokers. Alla instanser kördes lokalt.
-För att göra systemet mer tillgängligt i produktionsmiljö kan man använda sig av flera zookeepers som körs på olika hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar.  
-I produktionsmiljö ska man ha 3 eller fler message brokers för att säkerställa tillgänglighet och redundans. Brokers ska gå på olika servrar ha unikt rack id när så är fallet, och vara placerade på ett lämpligt sätt bland producerande och konsumerande klienter för säkerställa snabb meddelandeöverföring.
+För att göra systemet mer tillgängligt i produktionsmiljö kan man använda sig av flera zookeepers som körs på olika
+hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar.
+Det är möjligt att i zookeeper begränsa antalet ansluta brokers från samma ip.  
+I produktionsmiljö ska man ha 3 eller fler message brokers för att säkerställa tillgänglighet och redundans. 
+Brokers ska gå på olika servrar ha unikt rack id när så är fallet, och vara placerade på ett lämpligt sätt bland
+producerande och konsumerande klienter för säkerställa snabb meddelandeöverföring.
 
-Det är kritiskt att man ställer replikeringsfaktorn för topic till tre eller högre för säkerställa att meddelanden sprids över flera brokers. Det säkerställer att topic är tillgänglig även om server är nere för planerat eller oplanerat underhåll 
-"Log Flush Policy" är inställningar för när data på en kafka broker skrivs till hårddisk. Det är en balansgång mellan stora skrivjobb som kan ge laggspikar och små skrivjobb som ger mer söktid. 
+Det är kritiskt att man ställer replikeringsfaktorn för topic till tre eller högre för säkerställa att meddelanden
+sprids över flera brokers. Det säkerställer att topic är tillgänglig även om server är nere för planerat eller oplanerat underhåll.
+Kafka kommer själv balancer vilka brokers som hanterar vilka topics
+"Log Flush Policy" är inställningar för när data på en kafka broker skrivs till hårddisk. Det är en balansgång mellan
+stora skrivjobb som kan ge laggspikar och små skrivjobb som ger mer söktid. 
 
-Om man ska skapa en kafka consumer som läser ifrån flera topics så använder man sig av java regex för att ange topics. Har man redan i planeringsskedet tänkt till med topic namnen blir regex uttrycket mycket lättare att skapa. 
+Om man ska skapa en kafka consumer som läser ifrån flera topics så använder man sig av java regex för att ange topics.
+Har man redan i planeringsskedet tänkt till med topic namnen blir regex uttrycket mycket lättare att skapa.
+
+Kafka consumers kan delas in i grupper varje grupp kan bara konsumera meddelanden en gång. Det Möjliggör att man lätt
+kan parallellisera konsumerande av meddelanden ifall det krävs. I det här fallet är konsumenten som skickar till databasen i en grupp och användare klienten i en annan.  
+
+Saker att implementera
+Krypta trafiken och även kräva autentisering av producer och consumers.
+Begränsa vilkla Json objekt som skapas och läses av.
+
 
 vg:  
 Optimering: Utvärdera och implementera effektiva sätt att skicka och behandla meddelanden i ditt Kafka-kluster.

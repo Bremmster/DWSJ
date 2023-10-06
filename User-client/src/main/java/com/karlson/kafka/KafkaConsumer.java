@@ -25,7 +25,7 @@ public class KafkaConsumer {
     public KafkaConsumer() {
         properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "fetchingGroup");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "user-client");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class); // class.getName()
