@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Pokemon-Consume-SQL</artifactId>
+    <artifactId>kafkaConsumer-mySQL</artifactId>
 
     <dependencies>
         <dependency>
@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.karlson</groupId>
-            <artifactId>Pokemon-data</artifactId>
+            <artifactId>pokemon-dto</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -24,9 +24,9 @@
 
     <description>Inlämningsuppgift Designa en Web Service i Java</description>
     <modules>
-        <module>Pokemon-data</module>
-        <module>Pokemon-Consume-SQL</module>
+        <module>pokemon-dto</module>
+        <module>kafkaConsumer-mySQL</module>
         <module>User-client</module>
-        <module>Pokemon-producer</module>
+        <module>kafkaProducer-restApi</module>
     </modules>
 </project>

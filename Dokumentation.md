@@ -65,8 +65,8 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
    1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
 9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter till schemat
    1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
-10. Starta modulen Pokemon-producer den använder port 8080
-11. Starta modulen Pokemon-consume-SQL
+10. Starta modulen kafkaProducer-restApi den använder port 8080
+11. Starta modulen kafkaConsumer-mySQL
 12. Starta modulen User-Client
 13. Använd klient applikationen. 
 
