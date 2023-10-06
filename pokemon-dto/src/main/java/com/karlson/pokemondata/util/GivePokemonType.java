@@ -10,7 +10,6 @@ public class GivePokemonType {
 
     public static String get(Random random) {
         return types.get(random.nextInt(TYPE_SIZE)).toString();
-
     }
 
     private GivePokemonType() {
