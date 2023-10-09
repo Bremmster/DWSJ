@@ -87,7 +87,7 @@ producerande och konsumerande klienter för säkerställa snabb meddelandeöverf
 
 Det är kritiskt att man ställer replikeringsfaktorn för topic till tre eller högre för säkerställa att meddelanden
 sprids över flera brokers. Det säkerställer att topic är tillgänglig även om server är nere för planerat eller oplanerat underhåll.
-Kafka kommer själv balancer vilka brokers som hanterar vilka topics
+Kafka kommer själv balansera vilka brokers som hanterar vilka topics
 "Log Flush Policy" är inställningar för när data på en kafka broker skrivs till hårddisk. Det är en balansgång mellan
 stora skrivjobb som kan ge laggspikar och små skrivjobb som ger mer söktid. 
 
@@ -97,9 +97,11 @@ Har man redan i planeringsskedet tänkt till med topic namnen blir regex uttryck
 Kafka consumers kan delas in i grupper varje grupp kan bara konsumera meddelanden en gång. Det Möjliggör att man lätt
 kan parallellisera konsumerande av meddelanden ifall det krävs. I det här fallet är konsumenten som skickar till databasen i en grupp och användare klienten i en annan.  
 
+
+
 Saker att implementera
 Krypta trafiken och även kräva autentisering av producer och consumers.
-Begränsa vilkla Json objekt som skapas och läses av.
+
 
 
 vg:  
@@ -110,27 +112,23 @@ skicka och behandla meddelanden i ditt Kafka-kluster.
 ### Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
 Implementeringen av är inte säkrad, anslutande producers och consumers är anonyma. Det innebär att alla kan skicka meddelanden och skapa topics. Meddelanden skickas okrypterat. 
 
+
 ### Authentication/Authorization (autentisering och auktorisering)
-För att höja säkerheten behöver ändra så det krävs autentisering för att vet vem som ansluter och aktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
+För att höja säkerheten behöver ändra så det krävs autentisering för att vet vem som ansluter och auktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
 
 Steget därefter är att analysera om trafiken behöver krypteras. I utvecklingsmiljö är det inte aktuellt men i produktionsmiljö ställs krav på att skydda personuppgifter och företagskänsligt data.
 Även om uppgifter av den karaktären inte hanteras initial finns risken att så sker senare och kryptering ska införas från start.
 Krypteringsalternativen är SSL (Bra för molnlösningar) eller SASL SSL passar bra för företag som redan har en lösning med Kerberos autentiserings lösning.
 Det är flera delar av trafiken som behöver krypteras dels från producers, consumers, trafiken mellan brokers och trafiken till Zookeeper. Även data på disk kommer behöva krypteras.
 
-Har man riktigt kännslig data eller använder sig av moln lösning bör man end-to-end kryptera trafiken.
+Har man mycket känslig data eller har en molnbaserad lösning ska trafiken krypteras end-to-end.
 
 Man behöver även fundera på hur man skyddar sina brokers från DDOS attacker. 
 
+Zookeepers behöver skyddas i nätverksmiljön det är bara administreringsverktyg och brokers som kan få tillgång. 
+
 Bra introduktion till kafka och säkerhet -> https://developer.confluent.io/courses/security/intro/
-
-Men inget system är starkare en sin svagaste part, en ej säkrad server kan kompromissa all säkerhet.
-
-Zookeeper håller ordning på nodes and topic register, den trafiken behöver krypteras och även kryptera data på disk.
-
-Trafiken i topics är okrypterad, trafiken mellan brokers är okrypterad, topics på disk är okrypterad. Brokers behöver inte verifiera
-
-Krypterad trafik ökar processor (CPU) belastning  
+I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vidtas. 
 
 ## Arbetet och dess genomförande
 
@@ -160,7 +158,7 @@ objekt för att spara i databasen. Det skapade ömtålig datastruktur.
 ## Slutsatser
 
 Springboot är väldigt kraftfullt och besparar mycket skrivande av kod. Integration med Kafka är lätt att genomföra och
-meddelanden skickas väldigt fort genom systemet.
+meddelanden skickas väldigt fort genom systemet. 
 
 ### Vad gick bra
 
