@@ -3,7 +3,6 @@ package com.karlson.application;
 import com.karlson.kafka.KafkaConsumer;
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.HttpClient;
-import org.apache.hc.core5.http.HttpException;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -28,11 +27,7 @@ class TestApiAndKafka {
         testPokemon = new Pokemon("testPokemon", new Random());
 
         mockHttpClient = mock(HttpClient.class);
-        try { // todo get rid of try catch
-            when(mockHttpClient.post(testPokemon)).thenReturn(200);
-        } catch (HttpException e) {
-            throw new RuntimeException(e);
-        }
+        when(mockHttpClient.post(testPokemon)).thenReturn(200);
 
         mockKafkaConsumer = mock(KafkaConsumer.class);
         List<Pokemon> sutPokemonList = new ArrayList<>();
@@ -45,12 +40,9 @@ class TestApiAndKafka {
     void mockWebApiTest() {
 
         int expected = 200; // http response code
-        int ActualResponse = 0;
-        try {
-            ActualResponse = mockHttpClient.post(testPokemon);
-        } catch (HttpException e) {
-            throw new RuntimeException(e);
-        }
+
+        int ActualResponse = mockHttpClient.post(testPokemon);
+
         assertEquals(expected, ActualResponse);
     }
 
@@ -71,24 +63,21 @@ class TestApiAndKafka {
 
     @Test
     @Order(3)
-    @Disabled
-        // Warning! Test creates post in production. requires server
+    @Disabled("Disabled test webApiTest(), Test creates post in production. requires the webserver")
     void webApiTest() {
 
         int expected = 200; // http response code
-        int ActualResponse = 0;
-        try {
-            ActualResponse = httpClient.post(testPokemon);
-        } catch (HttpException e) {
-            throw new RuntimeException(e);
-        }
+        int ActualResponse;
+
+        ActualResponse = httpClient.post(testPokemon);
+
         assertEquals(expected, ActualResponse);
     }
 
+
     @Test
     @Order(4)
-    @Disabled
-        // Warning! Reads from kafka topic requires broker. Requires webApiTest() to succeed
+    @Disabled("Disabled test kafkaConsumerTest() Reads from kafka topic needs broker. Requires webApiTest() to succeed")
     void kafkaConsumerTest() {
         // Arrange
         String name = testPokemon.getName();

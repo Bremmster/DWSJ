@@ -7,7 +7,6 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.HttpException;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -22,7 +21,7 @@ public class HttpClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/pokemons/publish");
 
-    public int post(Pokemon pokemon) throws HttpException {
+    public int post(Pokemon pokemon) {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
@@ -32,12 +31,13 @@ public class HttpClient {
 
             return execute(httpClient);
 
-        } catch (ParseException | IOException e) {
-            LOGGER.warn("message post fail! 503 restAPI not available");
-            throw new HttpException("http post failed! %s".formatted(e));
+        } catch (IOException | ParseException e) {
+            LOGGER.warn("message post fail! restAPI not available");
+            LOGGER.warn(String.valueOf(e));
+            return 404;
         }
-//        return 503;
     }
+
 
     private int execute(CloseableHttpClient httpClient) throws IOException, ParseException {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {

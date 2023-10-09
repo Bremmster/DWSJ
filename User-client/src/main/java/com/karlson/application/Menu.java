@@ -5,20 +5,19 @@ import com.karlson.application.helpers.UserInputManager;
 import com.karlson.kafka.KafkaConsumer;
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.service.HttpClient;
-import org.apache.hc.core5.http.HttpException;
 
 import java.util.Random;
 
 public class Menu {
 
-    private Random random;
-    private HttpClient httpClient;
-    private KafkaConsumer kafkaConsumer;
+    private final Random random;
+    private final HttpClient httpClient;
+    private final KafkaConsumer kafkaConsumer;
 
-    public Menu() {
-        this.random = new Random();
-        this.httpClient = new HttpClient();
-        this.kafkaConsumer = new KafkaConsumer();
+    public Menu(Random random, HttpClient httpClient, KafkaConsumer kafkaConsumer) {
+        this.random = random;
+        this.httpClient = httpClient;
+        this.kafkaConsumer = kafkaConsumer;
         mainMenu();
     }
 
@@ -41,8 +40,9 @@ public class Menu {
                 case 3 -> viewAllPokemons = true; // Reset Kafka consumer, get all messages
                 case 9 -> {
                     System.exit(0);
-                    return; // Sonarlint gets angry if its removed
+                    return;
                 }
+                default -> TextManager.notValidChoice();
             }
         }
     }
@@ -55,17 +55,13 @@ public class Menu {
             switch (UserInputManager.getLimitedInt(1, 1)) {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
-
-                    try {
-                        httpClient.post(pokemon);
-                    } catch (HttpException e) {
-                        throw new RuntimeException(e);
-                    }
-                        return;
+                    httpClient.post(pokemon);
+                    return;
                 }
                 case 9 -> {
                     return;
                 }
+                default -> TextManager.notValidChoice();
             }
         }
     }
