@@ -30,7 +30,7 @@ public class KafkaConsumer {
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class); // class.getName()
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        properties.put("spring.json.trusted.packages", "*");
+        properties.put("spring.json.trusted.packages", "com.karlson.pokemondata.model*");
     }
 
     public List<Pokemon> getKafkaData(Boolean reset) {
