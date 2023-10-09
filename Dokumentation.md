@@ -172,12 +172,14 @@ Av för mig okänd anledning är jackson-databind krav för att få igång modul
 
 ### Vad har du lärt dig
 
-Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka, Docker
+Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka, Docker.
 
 ### Vad hade du gjort annorlunda om ni gjort om projektet
 
-Redan från början skapat projektet med moduler.
+Redan från början skapat projektet med moduler. Tittat på säkerhetsimplementeringar i tidigare skede.
+Genomfört en tydligare planeringsfas i varje delmoment och arbetat med kanban board för att skapa bättre överblick över genomförda uppgifter.
+Tagit mig tid att testa ännu fler olika lösningar.
 
 ### Vilka möjligheter ser du med de kunskaper du fått under kursen.
-
+En förståelse för systemintegration och vad för alternativ som finns. 
 Implementera och använda kafkalösningar för kommunikation mellan appar. Smidigt lagrade av data med JPA. 
