@@ -103,11 +103,34 @@ Begränsa vilkla Json objekt som skapas och läses av.
 
 
 vg:  
-Optimering: Utvärdera och implementera effektiva sätt att skicka och behandla meddelanden i ditt Kafka-kluster.
-● Konfigurera Apache Kafka för att hantera replikering och felhantering för att säkerställa hög tillgänglighet.
-● Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
 
+Optimering: Utvärdera och implementera effektiva sätt att
+skicka och behandla meddelanden i ditt Kafka-kluster.
+### Konfigurera Apache Kafka för att hantera replikering och felhantering för att säkerställa hög tillgänglighet.
+### Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
+Implementeringen av är inte säkrad, anslutande producers och consumers är anonyma. Det innebär att alla kan skicka meddelanden och skapa topics. Meddelanden skickas okrypterat. 
 
+### Authentication/Authorization (autentisering och auktorisering)
+För att höja säkerheten behöver ändra så det krävs autentisering för att vet vem som ansluter och aktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
+
+Steget därefter är att analysera om trafiken behöver krypteras. I utvecklingsmiljö är det inte aktuellt men i produktionsmiljö ställs krav på att skydda personuppgifter och företagskänsligt data.
+Även om uppgifter av den karaktären inte hanteras initial finns risken att så sker senare och kryptering ska införas från start.
+Krypteringsalternativen är SSL (Bra för molnlösningar) eller SASL SSL passar bra för företag som redan har en lösning med Kerberos autentiserings lösning.
+Det är flera delar av trafiken som behöver krypteras dels från producers, consumers, trafiken mellan brokers och trafiken till Zookeeper. Även data på disk kommer behöva krypteras.
+
+Har man riktigt kännslig data eller använder sig av moln lösning bör man end-to-end kryptera trafiken.
+
+Man behöver även fundera på hur man skyddar sina brokers från DDOS attacker. 
+
+Bra introduktion till kafka och säkerhet -> https://developer.confluent.io/courses/security/intro/
+
+Men inget system är starkare en sin svagaste part, en ej säkrad server kan kompromissa all säkerhet.
+
+Zookeeper håller ordning på nodes and topic register, den trafiken behöver krypteras och även kryptera data på disk.
+
+Trafiken i topics är okrypterad, trafiken mellan brokers är okrypterad, topics på disk är okrypterad. Brokers behöver inte verifiera
+
+Krypterad trafik ökar processor (CPU) belastning  
 
 ## Arbetet och dess genomförande
 
@@ -116,7 +139,7 @@ Optimering: Utvärdera och implementera effektiva sätt att skicka och behandla 
 Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler
 Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till
 egen modul blev ändringar lättare att genomföra.  
-Dependecys i moduler att rätt ska är på rätt plats.
+När projektet bröts ner till flera moduler uppstod problem med var dependecys behövdes.
 
 ### Beskriv lite olika lösningar du gjort
 
@@ -125,10 +148,9 @@ databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
 
 ### Beskriv något som var besvärligt att få till
-
-Att använda för mig nya dependecys innan man hittar rätt strategi för att skapa önskad functionality. 
-Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet.
-Dezerializera json kafka meddelanden som objekt
+Springboot och Annoteringar var nytt för mig, blir lite annorlunda sätt att skriva kod. 
+Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet. Min första lösning fungerade inte i JPA kontext.
+Dezerializera json kafka meddelanden som objekt, min första lösning var onödigt krånglig och utnyttjade inte effektiviteten i kafka och springboot.
 
 ### Beskriv om du fått byta lösning och varför i sådana fall
 
@@ -148,7 +170,7 @@ ställe. Linux är mycket stabil och bra utvecklingsmiljö för Java Springboot 
 ### Vad gick dåligt
 
 Skrev massa kul kod för att hantera objekt och tables i databaser, helt i onödan.  
-Det är stökigt med dependecys i de olka modulerna
+Av för mig okänd anledning är jackson-databind krav för att få igång modulen som skickar data till sql databasen
 
 ### Vad har du lärt dig
 
