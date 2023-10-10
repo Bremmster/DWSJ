@@ -10,36 +10,39 @@ import java.util.Random;
 
 public class Menu {
 
-    Random random;
-    HttpClient httpClient;
-    KafkaConsumer kafkaConsumer;
+    private final Random random;
+    private final HttpClient httpClient;
+    private final KafkaConsumer kafkaConsumer;
 
-    public Menu() {
-        this.random = new Random();
-        this.httpClient = new HttpClient();
-        this.kafkaConsumer = new KafkaConsumer();
+    public Menu(Random random, HttpClient httpClient, KafkaConsumer kafkaConsumer) {
+        this.random = random;
+        this.httpClient = httpClient;
+        this.kafkaConsumer = kafkaConsumer;
         mainMenu();
     }
 
     private void mainMenu() {
 
         boolean viewAllPokemons = false; // true resets the message counter, gets all messages
+
         while (true) {
-            // Views messages from kafka broker
-            TextManager.viewPokemons(kafkaConsumer.getKafkaData(viewAllPokemons));
+
+            TextManager.viewPokemons(kafkaConsumer.fetchKafkaData(viewAllPokemons));
 
             TextManager.mainMenu();
+
             switch (UserInputManager.getLimitedInt(1, 3)) {
                 case 1 -> {
                     viewAllPokemons = false;
                     findPokemonMenu();
                 }
-                case 2 -> viewAllPokemons = false;
-                case 3 -> viewAllPokemons = true;
+                case 2 -> viewAllPokemons = false; // check kafka topic for updates
+                case 3 -> viewAllPokemons = true; // Reset Kafka consumer, get all messages
                 case 9 -> {
                     System.exit(0);
-                    return; // Sonarlint gets angry if its removed
+                    return;
                 }
+                default -> TextManager.notValidChoice();
             }
         }
     }
@@ -52,12 +55,13 @@ public class Menu {
             switch (UserInputManager.getLimitedInt(1, 1)) {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
-                    httpClient.postToWebAPI(pokemon);
+                    httpClient.post(pokemon);
                     return;
                 }
                 case 9 -> {
                     return;
                 }
+                default -> TextManager.notValidChoice();
             }
         }
     }

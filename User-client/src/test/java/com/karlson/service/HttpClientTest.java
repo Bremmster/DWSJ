@@ -1,28 +1,21 @@
 package com.karlson.service;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.karlson.pokemondata.model.Pokemon;
 import com.karlson.pokemondata.model.PokemonType;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class HttpClientTest {
     /**
-     * Method under test: {@link HttpClient#postToWebAPI(Pokemon)}
+     * Method under test: {@link HttpClient#post(Pokemon)}
      */
     @Test
     void testPostToWebAPI() {
@@ -54,7 +47,7 @@ class HttpClientTest {
             pokemon.setPokedexNumber(10);
             pokemon.setTypes(new ArrayList<>());
             pokemon.setTotal(1);
-            assertThrows(RuntimeException.class, () -> httpClient.postToWebAPI(pokemon));
+            assertThrows(RuntimeException.class, () -> httpClient.post(pokemon));
             verify(pokemon).getAttack();
             verify(pokemon).getDefence();
             verify(pokemon).getHp();

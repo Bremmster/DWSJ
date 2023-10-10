@@ -1,6 +1,5 @@
 package com.karlson.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.karlson.pokemondata.model.Pokemon;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -22,7 +21,7 @@ public class HttpClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/pokemons/publish");
 
-    public int postToWebAPI(Pokemon pokemon) {
+    public int post(Pokemon pokemon) {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
@@ -30,17 +29,25 @@ public class HttpClient {
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
 
-            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
-                return response.getCode();
-            } catch (ParseException e) {
-                throw new ParseException(e.toString());
-            }
+            return execute(httpClient);
 
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn("message post fail! restAPI not available");
+            LOGGER.warn(String.valueOf(e));
+            return 404;
+        }
+    }
+
+
+    private int execute(CloseableHttpClient httpClient) throws IOException, ParseException {
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+
+            LOGGER.info(String.format("Response code -> %s, body -> %s ", response.getCode(), EntityUtils.toString(response.getEntity())));
+
+            return response.getCode();
+
+        } catch (ParseException e) {
+            throw new ParseException(e.toString());
         }
     }
 }

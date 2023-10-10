@@ -43,6 +43,7 @@ public class TextManager {
         System.out.println("Message from Kafka broker: ");
         for (Pokemon pokemon : pokemons) {
             System.out.println(pokemon.toPrettyString());
+            System.out.println(TOP_BORDER);
         }
     }
 
