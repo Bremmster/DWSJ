@@ -5,71 +5,41 @@ ReadMe fil med väsentlig information för
 set-up och drift av er applikation och Kafka Kluster på en ny maskin och
 localhost.
 
-## Description
+## Beskrivning se Dokumentation.md
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+## Motivation till projektet
 
-- What was your motivation?
-  - Learn to use Springboot, How to set up and use Kafka message brokers, and write a multimodule project.
- 
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-  - Sending messages in realtime avoiding star/spagetti integration patterns
-- What did you learn?
+Som i del i kursen systemintegration ingick det att skriva en springboot applikation och att konfigurera ett En Apache Kafka installation.
 
-## Table of Contents (Optional)
+Projektet körs enbart på localhost.
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
+Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
+Det krävs en mySQL databas på localhost:3306
+Apache Kafka med standard inställning på zookeeper localhost:2181
+Kafka brokers localhost:9092,9093,9094
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
+Vidare beskrivning och reflektioner se Dokumentation.md
 
-## Installation
+## Starta projektet
 
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
--download and run kafka, give examples.
-
--use the server.properties, set up the storage path
-
-
-## Usage
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
-How to use:
-Start Kafka Zookeper with default config
-Start one or more kafka brokers on localhost ports 9092-9094, customized configs is located in kafkaConfigs
-You will need to set the logging directory's in the kafka server.properties files
-Start a mysql server on port localhost:3306 make a Schema "pokedb"
-create "user" with "password" and give them privileges to the schema
-for testing create schema "testdb" and a user "test" password "test" with privileges to schema
-
-Run module "Pokemon producer" to get the web api running att localhost:8080
-Run module "Pokemon-consume-SQL" to store all the Pokémons in the database
-The "User-client" is a client application with a console menu. It will find random pokémons and the user can give the pokemon a name and send it to the webAPI
-
-
-
-
-## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-* [member 1](https://github.com/person1)
-* [member 2](https://github.com/person1)
-
-## Dependencies
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-* [junit jupiter 5](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter/5.7.0)
-
+1. Ladda ner Apache Kafka från https://kafka.apache.org/ applikationen är testad med version 3.5.1
+2. Extrahera nedladdningen till valfri mapp på din dator.
+3. Kopiera filerna server1.properties, server2.properties & server3.properties från DWSJ/kafkaConfigs till din installation av Kafka/config
+4. I varje server.properties fil på rad 62 konfigurera mappen som kafkas message broker ska logga filerna, varje broker kräver en separat mapp. Exempel: log.dirs=C:\temp\kakfa\logs\broker92\kafka-logs
+5. Öppna filen kafka/config/zookeeper.properties och ställ in lämplig mapp för loggning exempelvis: dataDir=C:\temp\kakfa\logs\zookeeper
+6. Öppna fyra stycken terminaler i din kafka mapp. Kör ett kommando i vardera terminal
+   1. .\bin\windows\zookeeper-server-start.sh config\zookeeper.properties
+   2. .\bin\windows\kafka-server-start.sh config\server1.properties
+   3. .\bin\windows\kafka-server-start.sh config\server2.properties
+   4. .\bin\windows\kafka-server-start.sh config\server3.properties
+7. Installera mySQL server https://www.mysql.com/ på port 3306
+8. Skapa schema "pokedb" och koppla till användare "user" med lösenord "password" med rättigheter till schemat
+   1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
+9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter till schemat
+   1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
+10. Starta modulen kafkaProducer-restApi den använder port 8080, denna modul skapar kafka topic
+11. Starta modulen kafkaConsumer-mySQL
+12. Starta modulen User-Client, använd klient applikationen.
 
 ## License
 Copyright (c) <2023> Kristian Karlson

@@ -71,19 +71,15 @@ Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
 11. Starta modulen kafkaConsumer-mySQL
 12. Starta modulen User-Client, använd klient applikationen. 
 
-
-
-
-
-
 ### Konfiguration av Kafka kluster
 
 #### Skriv dokumentation som beskriver ditt Apache Kafka-klusters konfiguration och hur producenten och konsumenterna är implementerade.
 För projektet används ett kafkakluster med en zookeeper och tre stycken brokers. Alla instanser kördes lokalt.
-För att göra systemet mer tillgängligt i produktionsmiljö kan man använda sig av flera zookeepers som körs på olika
-hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar.
+
+För att göra systemet mer tillgängligt i produktionsmiljö ska man använda sig av flera (mer en 3) zookeepers och brokers som körs på olika
+hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar. DEt säkerställer tillgänglighet och redundans.
 Det är möjligt att i zookeeper begränsa antalet ansluta brokers från samma ip.  
-I produktionsmiljö ska man ha 3 eller fler message brokers för att säkerställa tillgänglighet och redundans. 
+
 Brokers ska gå på olika servrar ha unikt rack id när så är fallet, och vara placerade på ett lämpligt sätt bland
 producerande och konsumerande klienter för säkerställa snabb meddelandeöverföring.
 
@@ -99,21 +95,11 @@ Har man redan i planeringsskedet tänkt till med topic namnen blir regex uttryck
 Kafka consumers kan delas in i grupper varje grupp kan bara konsumera meddelanden en gång. Det Möjliggör att man lätt
 kan parallellisera konsumerande av meddelanden ifall det krävs. I det här fallet är konsumenten som skickar till databasen i en grupp och användare klienten i en annan.  
 
-
-
-Saker att implementera
-Krypta trafiken och även kräva autentisering av producer och consumers.
-
-
-
-vg:  
-
 Optimering: Utvärdera och implementera effektiva sätt att
 skicka och behandla meddelanden i ditt Kafka-kluster.
 
 ### Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
 Implementeringen av är inte säkrad, anslutande producers och consumers är anonyma. Det innebär att alla kan skicka meddelanden och skapa topics. Meddelanden skickas okrypterat. 
-
 
 För att höja säkerheten behöver ändra så det krävs autentisering för att veta vem som ansluter och auktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
 
@@ -121,12 +107,10 @@ Steget därefter är att analysera om trafiken behöver krypteras. I utvecklings
 Även om uppgifter av den karaktären inte hanteras initial finns risken att så sker senare och kryptering ska införas från start.
 Krypteringsalternativen är SSL (Bra för molnlösningar) eller SASL SSL passar bra för företag som redan har en lösning med Kerberos autentiserings lösning.
 Det är flera delar av trafiken som behöver krypteras dels från producers, consumers, trafiken mellan brokers och trafiken till Zookeeper. Även data på disk kommer behöva krypteras.
+Men i tex krasch dumpar kommer data vara okrypterad. Har man mycket känslig data eller har en molnbaserad lösning ska trafiken krypteras end-to-end.
 
-Har man mycket känslig data eller har en molnbaserad lösning ska trafiken krypteras end-to-end.
-
-Man behöver även fundera på hur man skyddar sina brokers från DDOS attacker. 
-
-Zookeepers behöver skyddas i nätverksmiljön det är bara administreringsverktyg och brokers som kan få tillgång. 
+Zookeepers behöver skyddas i nätverksmiljön det är bara administreringsverktyg och brokers som kan få nå dom.
+Man behöver även fundera på hur man skyddar sina brokers från distributed denial-of-service attacker (DDoS).
 
 Bra introduktion till kafka och säkerhet -> https://developer.confluent.io/courses/security/intro/
 I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vidtas. 
@@ -135,14 +119,13 @@ I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vi
 
 ### Vad som varit svårt
 
-Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler
 Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till
 egen modul blev ändringar lättare att genomföra.  
 När projektet bröts ner till flera moduler uppstod problem med var dependecys behövdes.
 
 ### Beskriv lite olika lösningar du gjort
-
-Bröts ut objekten till egen modul, det underlättade genomförandet av förändringar i objektet. Under  då följde förändringar med genom alla moduler. Använde mig av "create-drop" av
+Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler för att tydliggöra ansvarsområdena.
+Objekten blev egen modul, det underlättade genomförandet av förändringar i objektet. Ändringar följer med till alla moduler. Använde mig av "create-drop" av
 databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
 
@@ -169,9 +152,13 @@ ställe. Linux är mycket stabil och bra utvecklingsmiljö för Java Springboot 
 ### Vad gick dåligt
 
 Skrev massa kul kod för att hantera objekt och tables i databaser, helt i onödan.  
-Av för mig okänd anledning är jackson-databind krav för att få igång modulen som skickar data till sql databasen
+Av för mig okänd anledning är jackson-databind krav i modulen som interagerar med sql databasen, ser inte var den nyttjas.
 
 ### Vad har du lärt dig
+
+Vikten av att definiera mvp gränserna för projektet tidigt. Vilket är utmanande med nya tekniker men oupptäckta förmågor.
+Det är lite annorlunda strategi för att lära sig framework contra grundläggande programming. Lösningarna på problemen finns redan
+de ska bara användas på ett korrekt. Det blir viktigare att gå igenom tutorials och dokumentation innan man börjar skapa egna lösningar.
 
 Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka, Docker.
 
