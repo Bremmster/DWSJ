@@ -50,6 +50,8 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
 ``` 
 ### Starta applikationen
 
+Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
+
 1. Ladda ner Apache Kafka från https://kafka.apache.org/ applikationen är testad med version 3.5.1  
 2. Extrahera nedladdningen till valfri mapp på din dator.
 3. Kopiera filerna server1.properties, server2.properties & server3.properties från DWSJ/kafkaConfigs till din installation av Kafka/config
@@ -65,7 +67,7 @@ En pokemon är ett objekt. Den separata modulen skapar alla objekt. I Json ser e
    1. Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/main/resources/application.properties
 9. Frivilligt, skapa schema "testdb" med användare "test" lösenord "test" och rättigheter till schemat
    1.  Alternativt ändra i filen /DWSJ/Pokemon-Consume-SQL/src/test/resources/application-test.properties
-10. Starta modulen kafkaProducer-restApi den använder port 8080
+10. Starta modulen kafkaProducer-restApi den använder port 8080, denna modul skapar kafka topic
 11. Starta modulen kafkaConsumer-mySQL
 12. Starta modulen User-Client, använd klient applikationen. 
 
@@ -108,13 +110,12 @@ vg:
 
 Optimering: Utvärdera och implementera effektiva sätt att
 skicka och behandla meddelanden i ditt Kafka-kluster.
-### Konfigurera Apache Kafka för att hantera replikering och felhantering för att säkerställa hög tillgänglighet.
+
 ### Utöka dokumentationen med en djupare förståelse av de val du gjort avseende konfiguration, säkerhet och optimering.
 Implementeringen av är inte säkrad, anslutande producers och consumers är anonyma. Det innebär att alla kan skicka meddelanden och skapa topics. Meddelanden skickas okrypterat. 
 
 
-### Authentication/Authorization (autentisering och auktorisering)
-För att höja säkerheten behöver ändra så det krävs autentisering för att vet vem som ansluter och auktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
+För att höja säkerheten behöver ändra så det krävs autentisering för att veta vem som ansluter och auktorisering för vilka rättigheter som ges i broker. Det krävs även att man ställer in så brokers behöver autentisera med zookeeper och varandra.
 
 Steget därefter är att analysera om trafiken behöver krypteras. I utvecklingsmiljö är det inte aktuellt men i produktionsmiljö ställs krav på att skydda personuppgifter och företagskänsligt data.
 Även om uppgifter av den karaktären inte hanteras initial finns risken att så sker senare och kryptering ska införas från start.
