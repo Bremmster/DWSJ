@@ -109,7 +109,7 @@ Zookeepers behöver skyddas i nätverksmiljön det är bara administreringsverkt
 Man behöver även fundera på hur man skyddar sina brokers från distributed denial-of-service attacker (DDoS).
 
 Bra introduktion till kafka och säkerhet -> https://developer.confluent.io/courses/security/intro/
-I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vidtas. 
+I sista filmen summerar de alla säkerhetsåtgärderna till en checklista. 
 
 ## Arbetet och dess genomförande
 
@@ -117,7 +117,7 @@ I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vi
 
 Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till
 egen modul blev ändringar lättare att genomföra.  
-När projektet bröts ner till flera moduler uppstod problem med var dependecys behövdes.
+Det var krångel med att flytta med rätt dependecys till rätt modul.
 
 ### Beskriv lite olika lösningar du gjort
 Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler för att tydliggöra ansvarsområdena.

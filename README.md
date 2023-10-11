@@ -1,17 +1,11 @@
 # DSWJ
 Designa Web Service Java
 
-ReadMe fil med väsentlig information för
-set-up och drift av er applikation och Kafka Kluster på en ny maskin och
-localhost.
-
-## Beskrivning se Dokumentation.md
+Vidare beskrivning se Dokumentation.md
 
 ## Motivation till projektet
 
-Som i del i kursen systemintegration ingick det att skriva en springboot applikation och att konfigurera ett En Apache Kafka installation.
-
-Projektet körs enbart på localhost.
+I kursen systemintegration ingick det att skriva en springboot applikation och att konfigurera ett Apache Kafka installation. Projektet körs enbart på localhost.
 
 Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
 Det krävs en mySQL databas på localhost:3306
