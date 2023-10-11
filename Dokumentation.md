@@ -1,18 +1,13 @@
 ## Kristian Karlson
 
-## Inlämningsuppgift YH Campus Mölndal Jinv23
-
-## Systemintegration 45 YHP
+Inlämningsuppgift YH Campus Mölndal Jinv23 Systemintegration 45 YHP
 
 ### Beskrivning av projektet
-### Vad du har gjort
 
 Skapat ett projekt med 4 moduler. En konsol Client, WebApi/Kafka Producer, Kafka consumer som sparar i mySQL databas. En
-Modul med Objektet Som ska används av alla moduler.
-
-Projektet består av tre moduler en klientapplikation som slumpar fram fiktiva Pokémon som skickas till ett webAPI.  
-webApi skickar sen vidare payload på ett Kafka topic. Topic läses av en Kafka consumer som sparar objekten i en mySQL
-databas.  
+Modul med Objektet som används av alla moduler.
+Klientapplikationen slumpar fram fiktiva Pokémon som skickas till ett webAPI. 
+webApi skickar sen vidare payload på ett Kafka topic. Topic läses av en Kafka consumer som sparar objekten i en mySQL databas. 
 Klientapplikationen läser av samma topic så man kan visuellt bekräfta att informationen har skickats på topic.
 
 ### Flödesschema
@@ -77,8 +72,9 @@ Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
 För projektet används ett kafkakluster med en zookeeper och tre stycken brokers. Alla instanser kördes lokalt.
 
 För att göra systemet mer tillgängligt i produktionsmiljö ska man använda sig av flera (mer en 3) zookeepers och brokers som körs på olika
-hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar. DEt säkerställer tillgänglighet och redundans.
-Det är möjligt att i zookeeper begränsa antalet ansluta brokers från samma ip.  
+hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar. Det säkerställer tillgänglighet och redundans.
+Det är möjligt att i zookeeper begränsa antalet ansluta brokers från samma ip.
+Antalet partitioner till varje topic är kvar på 1, har man topics med mycket trafik kan den ökas för att förbättra parallellisering av konsumtion.
 
 Brokers ska gå på olika servrar ha unikt rack id när så är fallet, och vara placerade på ett lämpligt sätt bland
 producerande och konsumerande klienter för säkerställa snabb meddelandeöverföring.
@@ -113,7 +109,7 @@ Zookeepers behöver skyddas i nätverksmiljön det är bara administreringsverkt
 Man behöver även fundera på hur man skyddar sina brokers från distributed denial-of-service attacker (DDoS).
 
 Bra introduktion till kafka och säkerhet -> https://developer.confluent.io/courses/security/intro/
-I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vidtas. 
+I sista filmen summerar de alla säkerhetsåtgärderna till en checklista. 
 
 ## Arbetet och dess genomförande
 
@@ -121,7 +117,7 @@ I texten till video 11 finns en checklista över säkerhetsåtgärder som ska vi
 
 Inledningsvis fanns det problem med att hanterandet av objekten då de definierades i alla moduler. När det bröts ut till
 egen modul blev ändringar lättare att genomföra.  
-När projektet bröts ner till flera moduler uppstod problem med var dependecys behövdes.
+Det var krångel med att flytta med rätt dependecys till rätt modul.
 
 ### Beskriv lite olika lösningar du gjort
 Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler för att tydliggöra ansvarsområdena.
@@ -161,6 +157,9 @@ Det är lite annorlunda strategi för att lära sig framework contra grundlägga
 de ska bara användas på ett korrekt. Det blir viktigare att gå igenom tutorials och dokumentation innan man börjar skapa egna lösningar.
 
 Springboot, modulära projekt, skapa webAPI, SQL hantering med JPA, Apache Kafka, Docker.
+
+Provat att automatgenerera tester med plugin Diffblue Cover. Insikten att det skapar textväggar till test som är tar tid att förstå.
+Man missar dessutom testdriven utveckling som är viktigt för framtida underhåll av koden.  
 
 ### Vad hade du gjort annorlunda om ni gjort om projektet
 
