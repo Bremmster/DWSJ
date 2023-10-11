@@ -1,8 +1,0 @@
-Kriterie 
-
-Lämna in zip och gtihub länk
-
-Marcus kommer köra på lokal server.properties skicka med egna 
-
-
-Felhantering för VG nivå mer try catch
