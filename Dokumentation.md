@@ -81,7 +81,7 @@ producerande och konsumerande klienter för säkerställa snabb meddelandeöverf
 
 Det är kritiskt att man ställer replikeringsfaktorn för topic till tre eller högre för säkerställa att meddelanden
 sprids över flera brokers. Det säkerställer att topic är tillgänglig även om server är nere för planerat eller oplanerat underhåll.
-Kafka kommer själv balansera vilka brokers som hanterar vilka topics
+Kafka kommer själv balansera vilka brokers som hanterar vilka topics.  
 "Log Flush Policy" är inställningar för när data på en kafka broker skrivs till hårddisk. Det är en balansgång mellan
 stora skrivjobb som kan ge laggspikar och små skrivjobb som ger mer söktid. 
 
@@ -101,7 +101,7 @@ För att höja säkerheten behöver ändra så det krävs autentisering för att
 
 Steget därefter är att analysera om trafiken behöver krypteras. I utvecklingsmiljö är det inte aktuellt men i produktionsmiljö ställs krav på att skydda personuppgifter och företagskänsligt data.
 Även om uppgifter av den karaktären inte hanteras initial finns risken att så sker senare och kryptering ska införas från start.
-Krypteringsalternativen är SSL (Bra för molnlösningar) eller SASL SSL passar bra för företag som redan har en lösning med Kerberos autentiserings lösning.
+Krypteringsalternativen är SSL (Bra för molnlösningar) eller SASL SSL är företag med befintligt autentiserings lösning med Kerberos.
 Det är flera delar av trafiken som behöver krypteras dels från producers, consumers, trafiken mellan brokers och trafiken till Zookeeper. Även data på disk kommer behöva krypteras.
 Men i tex krasch dumpar kommer data vara okrypterad. Har man mycket känslig data eller har en molnbaserad lösning ska trafiken krypteras end-to-end.
 
@@ -124,10 +124,11 @@ Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler 
 Objekten blev egen modul, det underlättade genomförandet av förändringar i objektet. Ändringar följer med till alla moduler. Använde mig av "create-drop" av
 databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
+Skapade CI flöde i Github Actions och en in memory databas med H2.
 
 ### Beskriv något som var besvärligt att få till
-Springboot och Annoteringar var nytt för mig, blir lite annorlunda sätt att skriva kod. 
-Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet. Min första lösning fungerade inte i JPA kontext.
+Springboot och Annoteringar var nytt för mig, blir lite annorlunda sätt att skriva kod.  
+Spara pokemon objekten i databasen, kopplingen med underobjekten och huvudobjektet. Min första lösning fungerade inte i JPA kontext.  
 Dezerializera json kafka meddelanden som objekt, min första lösning var onödigt krånglig och utnyttjade inte effektiviteten i kafka och springboot.
 
 ### Beskriv om du fått byta lösning och varför i sådana fall
