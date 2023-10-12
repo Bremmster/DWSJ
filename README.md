@@ -1,6 +1,8 @@
 # DSWJ
 Designa Web Service Java
 
+Använder sig av Github Actions CI
+
 Vidare beskrivning och reflektioner se Dokumentation.md
 
 ## Motivation till projektet
