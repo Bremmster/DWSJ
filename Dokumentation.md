@@ -124,6 +124,7 @@ Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler 
 Objekten blev egen modul, det underlättade genomförandet av förändringar i objektet. Ändringar följer med till alla moduler. Använde mig av "create-drop" av
 databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
+Skapade CI flöde i Github Actions och en in memory databas med H2.
 
 ### Beskriv något som var besvärligt att få till
 Springboot och Annoteringar var nytt för mig, blir lite annorlunda sätt att skriva kod.  
