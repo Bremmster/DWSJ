@@ -51,7 +51,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <!-- is scope needed, todo -->
             <scope>test</scope>
         </dependency>
     </dependencies>

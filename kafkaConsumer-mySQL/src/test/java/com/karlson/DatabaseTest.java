@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@TestPropertySource(locations = "/application-test.properties")
-@Disabled("Requires changes to application-test.properties and a running mySQL server")
+@TestPropertySource(locations = "/application.properties")
 class DatabaseTest {
 
     private static Pokemon pokemon;
