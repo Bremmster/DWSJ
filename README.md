@@ -1,7 +1,7 @@
 # DSWJ
 Designa Web Service Java
 
-Vidare beskrivning se Dokumentation.md
+Vidare beskrivning och reflektioner se Dokumentation.md
 
 ## Motivation till projektet
 
@@ -11,8 +11,6 @@ Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
 Det krävs en mySQL databas på localhost:3306
 Apache Kafka med standard inställning på zookeeper localhost:2181
 Kafka brokers localhost:9092,9093,9094
-
-Vidare beskrivning och reflektioner se Dokumentation.md
 
 ## Starta projektet
 
