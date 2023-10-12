@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestPropertySource(locations = "/application.properties")
-@Disabled("Requires changes to application.properties and a running mySQL server")
 class DatabaseTest {
 
     private static Pokemon pokemon;
@@ -33,7 +32,6 @@ class DatabaseTest {
 
     @Test
     @Order(1)
-    @Disabled("Requires changes to application.properties and a running mySQL server")
     void createPokemonTest() {
 
         pokemon = pokemonRepository.save(pokemon);
@@ -43,7 +41,6 @@ class DatabaseTest {
 
     @Test
     @Order(2)
-    @Disabled("Requires changes to application.properties and a running mySQL server")
     void updatePokemonTest() {
 
         Pokemon fetchedPokemon = pokemonRepository.findById(pokemon.getId()).get();
@@ -59,7 +56,6 @@ class DatabaseTest {
 
     @Test
     @Order(3)
-    @Disabled("Requires changes to application.properties and a running mySQL server")
     void deletePokemon() {
         assertNotNull(pokemonRepository.findById(pokemon.getId()).get());
 
