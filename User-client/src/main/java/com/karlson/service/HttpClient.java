@@ -37,7 +37,6 @@ public class HttpClient {
             return 404;
         }
     }
-// available
 
     private int execute(CloseableHttpClient httpClient) throws IOException, ParseException {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
