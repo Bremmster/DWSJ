@@ -66,10 +66,13 @@ Applikationen är testad med java Amazon Corretto 17.0.8 och med Java 21
 11. Starta modulen kafkaConsumer-mySQL
 12. Starta modulen User-Client, använd klient applikationen. 
 
+
+
 ### Konfiguration av Kafka kluster
 
 #### Skriv dokumentation som beskriver ditt Apache Kafka-klusters konfiguration och hur producenten och konsumenterna är implementerade.
 För projektet används ett kafkakluster med en zookeeper och tre stycken brokers. Alla instanser kördes lokalt.
+Producer har timeout på 60 sekunder finns inga brokers under den tiden får klientapplikationen felkod ifrån restAPI.
 
 För att göra systemet mer tillgängligt i produktionsmiljö ska man använda sig av flera (mer en 3) zookeepers och brokers som körs på olika
 hårdvara och beroende på applikationens användningsområde ska de ha olika internetanslutningar. Det säkerställer tillgänglighet och redundans.
@@ -124,7 +127,7 @@ Beslutade mig en bit in i utvecklandet att bryta ner programmet i flera moduler 
 Objekten blev egen modul, det underlättade genomförandet av förändringar i objektet. Ändringar följer med till alla moduler. Använde mig av "create-drop" av
 databasen för att snabbt kunna testa olika lösningar.
 Kört MySQL och Kafka i Docker containers, väldigt smidigt!
-Skapade CI flöde i Github Actions och en in memory databas med H2.
+Skapade CI flöde i Github Actions och en in memory databas före tester med H2.
 
 ### Beskriv något som var besvärligt att få till
 Springboot och Annoteringar var nytt för mig, blir lite annorlunda sätt att skriva kod.  

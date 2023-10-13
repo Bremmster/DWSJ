@@ -55,6 +55,7 @@ public class Menu {
             switch (UserInputManager.getLimitedInt(1, 1)) {
                 case 1 -> {
                     pokemon.setName(UserInputManager.getString());
+                    TextManager.timeOut();
                     httpClient.post(pokemon);
                     return;
                 }

@@ -1,6 +1,7 @@
 package com.karlson.kafka;
 
 import com.karlson.pokemondata.model.Pokemon;
+import org.apache.kafka.common.errors.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,12 +21,18 @@ public class JsonKafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(Pokemon data) {
+    public void sendMessage(Pokemon data) throws TimeoutException {
 
-        LOGGER.info(String.format("Message sent -> %s ", data));
+        LOGGER.info("Atempting to send message -> %s ", data);
 
         Message<Pokemon> message = MessageBuilder.withPayload(data).setHeader(KafkaHeaders.TOPIC, "pokemons").build();
 
-        kafkaTemplate.send(message);
+        try {
+            kafkaTemplate.send(message);
+        } catch (TimeoutException e) {
+            LOGGER.warn("Timeout occurred while sending message to Kafka");
+            throw new TimeoutException(e.toString());
+        }
+        LOGGER.info("Sent successfully");
     }
 }
