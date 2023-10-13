@@ -12,6 +12,10 @@ public class TextManager {
         System.out.print("Not an Integer\nPleaser enter Integer: ");
     }
 
+    public static void timeOut() {
+        System.out.println("Timeout for restAPI is 60 sec have patience");
+    }
+
     public static void notValidChoice() {
         System.out.println("Not a valid choice. Better luck next time \nPlease try again: ");
     }

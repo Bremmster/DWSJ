@@ -38,7 +38,6 @@ public class HttpClient {
         }
     }
 
-
     private int execute(CloseableHttpClient httpClient) throws IOException, ParseException {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
 
